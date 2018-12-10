@@ -1,0 +1,59 @@
+.animated{-webkit-animation-fill-mode: none;}
+
+p.image-container {
+    width: 100%;
+    height: 0;
+    padding-bottom: 60%;
+    overflow: hidden;
+}
+
+p.image-container img {
+    width: 100%;
+    height: 100%;
+}
+.divbox{
+    /*height:300px;*/
+    /*width:200px;*/
+    /*background:#ffffff;*/
+    /*border:solid 1px #cccccc;*/
+    /*float:left;*/
+    /*cursor:pointer;*/
+    /*margin-right:10px;*/
+
+}
+
+.divOverNotAllowedClick{
+    /*height:300px;*/
+    /*width:200px;*/
+    background:#ffffff;
+    border:solid 1px #cccccc;
+    float:left;
+    cursor:not-allowed;
+    /*margin-right:10px;*/
+}
+
+/*  滑入時變換底色樣式 */
+.divOver{
+    background:#a6e1ec;
+    border:solid 1px #d2dce3;
+}
+
+/*  點選時變換底色樣式 */
+.divClick{
+    background:#5acde2;
+    border:solid 1px #d2dce3;
+}
+
+.img-div{
+    width: 100px;
+    height: 50px;
+    border: 1px solid #000;
+
+}
+
+
+div img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+}
