@@ -182,6 +182,7 @@ return [
         Germey\Geetest\GeetestServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        'Barryvdh\Debugbar\ServiceProvider',
 
     ],
 
