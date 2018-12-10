@@ -34,7 +34,7 @@ function viewError($message = null, $url = null, $type = 'error' ,$view = null, 
 
     $view = $view ? $view : 'admin.commons.'.$type;
     $test=$url ? route($url) : '/';
-    \Debugbar::info($test);
+//    \Debugbar::info($test);
     return response()->view($view,[
         'url'=> $url ? route($url) : '/',
         'message'=>$message ? $message : '发生错误,请重试!',
