@@ -182,7 +182,7 @@ return [
         Germey\Geetest\GeetestServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        'Barryvdh\Debugbar\ServiceProvider',
+        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
@@ -237,7 +237,7 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'Debugbar' => 'Barryvdh\Debugbar\Facade',
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];
