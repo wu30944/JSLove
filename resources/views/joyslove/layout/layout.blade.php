@@ -44,6 +44,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </script>
     @yield('css')
 
+    <link rel="icon" type="image/png" href="http://jchweb/icon/icon.png" />
+
 </head>
 
 <body>
