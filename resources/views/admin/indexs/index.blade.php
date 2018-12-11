@@ -13,13 +13,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="shortcut icon" href="/favicon.ico">
     <link href="{{loadEdition('/admin/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/animate.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/style.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/js/dialog/ui-dialog.css')}}" rel="stylesheet">
-    <link rel="icon" type="image/png" href="http://jchweb/icon/icon.png" />
+    <link rel="icon" type="image/png" href="{{loadEdition('/icon/icon.png')}}" />
     @yield('css')
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">

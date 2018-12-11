@@ -8,8 +8,7 @@
     <meta name="description" content="{{ config('app.name', 'Laravel') }}">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" href="{{loadEdition('/icon/icon.png')}}" />
     <link href="{{loadEdition('/admin/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/animate.min.css')}}" rel="stylesheet">
