@@ -28,7 +28,7 @@ class StoreInfoService
      */
     public function create(array $params)
     {
-        \Debugbar::info($params['telephone']);
+        //\Debugbar::info($params['telephone']);
         return $this->StoreInfoRepository->create($params);
     }
 

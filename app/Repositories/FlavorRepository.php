@@ -48,7 +48,7 @@
 
         public function store(Request $request)
         {
-            \Debugbar::info($request);
+            //\Debugbar::info($request);
             $Data = $this->FlavorRepository->find($request->id);
             $Data->flavor_name = $request->flavor_name;
             $Data->money = $request->money;

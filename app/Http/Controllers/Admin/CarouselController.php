@@ -43,8 +43,6 @@ class CarouselController extends Controller
 
         $data=$this->PaginationService->page(1,$CarouselContent,'5','1');
 
-        \Debugbar::info($data);
-
         return view('admin.carousel.index')->with("data",$data);
     }
 
@@ -56,7 +54,6 @@ class CarouselController extends Controller
     public function create()
     {
         $html = view('admin.carousel.create')->render();
-//        \Debugbar::info($html);
         return response ()->json (compact('html'),200);
 
     }
@@ -99,7 +96,6 @@ class CarouselController extends Controller
 
         }catch (\PDOException $e)
         {
-            \Debugbar::info($e->getMessage());
             DB::connection()->getPdo()->rollBack();
             return response ()->json ( ['test'=>$e->getMessage()],404);
         }
@@ -128,7 +124,6 @@ class CarouselController extends Controller
         $EditMenuContent = $this->CarouselService->ById($id);
 
         $html = view('admin.carousel.edit')->with("Carousel",$EditMenuContent)->render();
-//        \Debugbar::info($html);
         return response ()->json ( compact('html'),200);
 //        return response ()->json ( $Menu->get()->toArray()[0],200);
 
@@ -162,7 +157,6 @@ class CarouselController extends Controller
 
         $data=$this->PaginationService->page($request->page,$CarouselContent,'5','1');
 
-//        \Debugbar::info($data);
 
         $html = view('admin.carousel.query')->with("data",$data)->render();
 
@@ -183,14 +177,12 @@ class CarouselController extends Controller
             DB::connection()->getPdo()->beginTransaction();
 
             $Model = $this->CarouselService->ById($request->id);
-//            \Debugbar::info(explode("/carousel/",$request->file_name));
             $PhotoUrlArray = explode("/carousel/",$Model->photo_url);
             $DeleteFlag = true;
             if(count($PhotoUrlArray)>1){
                 $UploadService = new UploadFileService();
                 $DeleteFlag = $UploadService->DeleteFiles("files","carousel",$PhotoUrlArray[1]);
             }
-            \Debugbar::info($DeleteFlag);
             if($DeleteFlag){
                 $this->CarouselService->Destroy($Model);
             }
@@ -207,7 +199,6 @@ class CarouselController extends Controller
 
         }catch (\PDOException $e)
         {
-            \Debugbar::info($e->getMessage());
             DB::connection()->getPdo()->rollBack();
             return response ()->json ( ['test'=>$e->getMessage()],404);
         }

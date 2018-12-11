@@ -32,7 +32,7 @@ class AlbumDRepository
     {
         if($id){
             $images = $this->dtAlbumnD->where('album_id','=',$id)->get();//DB::table('images')->where('product',$id)->get();
-            \Debugbar::info(count($images));
+            //\Debugbar::info(count($images));
             if(count($images)>0){
                 foreach ($images as $image) {
                     $info = new StdClass;
@@ -159,7 +159,7 @@ class AlbumDRepository
 
             // $dataID=$this->dtStaff->where('id','=',$id)->where('cod_id','=',$request->duty)->pluck('id');
             $data = staff::find($id);
-            \Debugbar::info($filename);
+            //\Debugbar::info($filename);
             $data->image_path = env('PHOTO_PATH').$catalog.'/'.$filename;
             $data->save();
 

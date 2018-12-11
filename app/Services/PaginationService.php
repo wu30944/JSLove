@@ -11,7 +11,7 @@ class PaginationService
         if(empty($page)) {
             $page = 1;
         }
-        \Debugbar::info($page);
+        //\Debugbar::info($page);
         $count = '';
         switch($class){
             case 1:

@@ -29,7 +29,7 @@ class UploadController extends Controller
 
         $Data = $this->UploadService->CkeditorUploadImage($File,$FileNameLong,"news");
 
-        \Debugbar::info($Data->Url);
+        //\Debugbar::info($Data->Url);
         //
         //  作了一些對圖片的處理後
         //

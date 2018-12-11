@@ -107,9 +107,8 @@ class FlavorController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function edit(Request $request)
     {
@@ -118,7 +117,7 @@ class FlavorController extends Controller
             DB::connection()->getPdo()->beginTransaction();
 
             $dtFlavor = $this->FlavorRepository->getFlavorById($request->id);
-            \Debugbar::info($dtFlavor->flavor_name);
+            //\Debugbar::info($dtFlavor->flavor_name);
 
             DB::connection()->getPdo()->commit();
 

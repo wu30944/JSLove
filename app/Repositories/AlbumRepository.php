@@ -31,7 +31,7 @@ class AlbumRepository
      * */
     public function getAlbum($strNumber = NULL)
     {
-        \Debugbar::info($strNumber);
+        //\Debugbar::info($strNumber);
         if($strNumber== NULL){
             return $this->dtAlbum->where('isvisible','=','Y')->get();
         }else{
@@ -88,7 +88,7 @@ class AlbumRepository
 
     public function delete($id)
     {
-        // \Debugbar::info($id);
+        // //\Debugbar::info($id);
         if( $this->dtAlbum->find($id)->delete())
         {
             return  collect(['ServerNo'=>'200','Result' =>'刪除成功！']);
@@ -138,7 +138,7 @@ class AlbumRepository
 
             // $dataID=$this->dtStaff->where('id','=',$id)->where('cod_id','=',$request->duty)->pluck('id');
             $data = staff::find($id);
-            \Debugbar::info($filename);
+            //\Debugbar::info($filename);
             $data->image_path = env('PHOTO_PATH').$catalog.'/'.$filename;
             $data->save();
 

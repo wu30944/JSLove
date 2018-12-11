@@ -83,14 +83,14 @@ class UploadFileService
                 $UploadState->FileName = $FileName;
                 $UploadState->Flag = $uploadFlag;
                 $UploadState->Url = str_replace(" ","",$this->GetFileUrl('files',$FolderName,$FileName));
-                \Debugbar::info($UploadState->Url);
+                //\Debugbar::info($UploadState->Url);
 
                 $data[]=$UploadState;
 
                 $FileCount++;
             }
         }
-        \Debugbar::info($data);
+        //\Debugbar::info($data);
         return $data;
     }
 
@@ -180,9 +180,6 @@ class UploadFileService
         $data=[];
         $Prefix = date("YmdHis");
         $Id = $request->album_id;
-//        $FileCount = 1;
-
-        debug($request);
 
         $Path = 'album/'.$FolderName;
 
@@ -202,7 +199,6 @@ class UploadFileService
                  *              第一個參數是完整資料夾
                  *              第二個參數是圖片檔案
                  * */
-                debug($file->getRealPath());
                 $uploadFlag = Storage::put(
                     $StoragePath . '/' . $FileName,
                     file_get_contents($file->getRealPath())
@@ -226,7 +222,6 @@ class UploadFileService
 //                $FileCount++;
             }
         }
-//        \Debugbar::info($data);
         return $data;
     }
 
@@ -234,9 +229,8 @@ class UploadFileService
 
         foreach($DeleteFileList as $index => $item)
         {
-//            debug($index);
-//            debug($item);
-            debug(Storage::delete($item));
+
+            Storage::delete($item);
         }
 
     }

@@ -19,6 +19,7 @@
     <link href="{{loadEdition('/admin/css/animate.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/style.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/js/dialog/ui-dialog.css')}}" rel="stylesheet">
+    <link rel="icon" type="image/png" href="http://jchweb/icon/icon.png" />
     @yield('css')
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">

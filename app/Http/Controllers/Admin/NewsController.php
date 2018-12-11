@@ -44,7 +44,7 @@ class NewsController extends Controller
 
         $Models = $this->NewsService->ById(1);
 
-        \Debugbar::info($data);
+        //\Debugbar::info($data);
 
 
         return view('admin.news.index')->with("data",$data);
@@ -84,7 +84,7 @@ class NewsController extends Controller
 
         }catch (\PDOException $e)
         {
-            \Debugbar::info($e->getMessage());
+            //\Debugbar::info($e->getMessage());
             DB::connection()->getPdo()->rollBack();
             return response ()->json ( ['test'=>$e->getMessage()],404);
         }
@@ -116,7 +116,7 @@ class NewsController extends Controller
 //
 //        return response ()->json ( compact('html'),200);
 
-        \Debugbar::info($NewsContent->content);
+        //\Debugbar::info($NewsContent->content);
         return response()->json($NewsContent,200);
 
 
@@ -148,7 +148,7 @@ class NewsController extends Controller
 
         $data=$this->PaginationService->page($request->page,$CarouselContent,'5','1');
 
-//        \Debugbar::info($data);
+//        //\Debugbar::info($data);
 
         $html = view('admin.news.query')->with("data",$data)->render();
 
@@ -169,14 +169,14 @@ class NewsController extends Controller
             DB::connection()->getPdo()->beginTransaction();
 
             $Model = $this->NewsService->ById($request->id);
-//            \Debugbar::info(explode("/carousel/",$request->file_name));
+//            //\Debugbar::info(explode("/carousel/",$request->file_name));
             $PhotoUrlArray = explode("/carousel/",$Model->photo_url);
             $DeleteFlag = true;
             if(count($PhotoUrlArray)>1){
                 $UploadService = new UploadFileService();
                 $DeleteFlag = $UploadService->DeleteFiles("files","carousel",$PhotoUrlArray[1]);
             }
-            \Debugbar::info($DeleteFlag);
+            //\Debugbar::info($DeleteFlag);
             if($DeleteFlag){
                 $this->NewsService->Destroy($Model);
             }
@@ -193,7 +193,7 @@ class NewsController extends Controller
 
         }catch (\PDOException $e)
         {
-            \Debugbar::info($e->getMessage());
+            //\Debugbar::info($e->getMessage());
             DB::connection()->getPdo()->rollBack();
             return response ()->json ( ['test'=>$e->getMessage()],404);
         }

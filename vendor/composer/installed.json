@@ -86,32 +86,32 @@
     },
     {
         "name": "barryvdh/laravel-debugbar",
-        "version": "v3.1.2",
-        "version_normalized": "3.1.2.0",
+        "version": "v3.2.1",
+        "version_normalized": "3.2.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/barryvdh/laravel-debugbar.git",
-            "reference": "59a7a08d84111a5b2407fb58b9d74af3ebe430e7"
+            "reference": "9d5caf43c5f3a3aea2178942f281054805872e7c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/59a7a08d84111a5b2407fb58b9d74af3ebe430e7",
-            "reference": "59a7a08d84111a5b2407fb58b9d74af3ebe430e7",
+            "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/9d5caf43c5f3a3aea2178942f281054805872e7c",
+            "reference": "9d5caf43c5f3a3aea2178942f281054805872e7c",
             "shasum": ""
         },
         "require": {
-            "illuminate/routing": "5.5.x|5.6.x",
-            "illuminate/session": "5.5.x|5.6.x",
-            "illuminate/support": "5.5.x|5.6.x",
+            "illuminate/routing": "5.5.x|5.6.x|5.7.x",
+            "illuminate/session": "5.5.x|5.6.x|5.7.x",
+            "illuminate/support": "5.5.x|5.6.x|5.7.x",
             "maximebf/debugbar": "~1.15.0",
             "php": ">=7.0",
             "symfony/debug": "^3|^4",
             "symfony/finder": "^3|^4"
         },
         "require-dev": {
-            "illuminate/framework": "5.5.x"
+            "laravel/framework": "5.5.x"
         },
-        "time": "2018-02-07T19:51:45+00:00",
+        "time": "2018-11-09T08:37:55+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

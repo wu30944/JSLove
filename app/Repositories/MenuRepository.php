@@ -49,7 +49,7 @@
 
         public function store(Request $request)
         {
-            \Debugbar::info($request);
+            //\Debugbar::info($request);
             $Data = $this->MenuRepository->find($request->id);
             $Data->Menu_name = $request->Menu_name;
             $Data->money = $request->money;

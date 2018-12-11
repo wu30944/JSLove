@@ -55,7 +55,7 @@ class AboutRepository
 
     public function store(Request $request)
     {
-        \Debugbar::info($request);
+        //\Debugbar::info($request);
         $data = $this->AboutRepository->find($request->id);
         $data->zh_company_name = $request->zh_company_name;
         $data->en_company_name = $request->en_company_name;

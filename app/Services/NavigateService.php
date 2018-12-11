@@ -70,7 +70,7 @@ class NavigateService
     public function getRulesTree()
     {
         $rules = $this->NavigateRepository->getRules()->toArray();
-        \Debugbar::info($rules);
+        //\Debugbar::info($rules);
         return Tree::tree($rules,'name','id','parent_id');
     }
 
@@ -84,7 +84,7 @@ class NavigateService
         if (!Cache::tags(['rbac', 'menus'])->has($menu_cache))
         {
             $rules = $this->NavigateRepository->getNavigateAndPublic()->toArray();
-            debug(Tree::array_tree($rules));
+//            debug(Tree::array_tree($rules));
 
 
             /**将权限路由存入缓存中*/

@@ -58,8 +58,6 @@ class AlbumController extends Controller
 //        $data=$this->PaginationService->page('',$QueryResult,'5','1');
 
         $AlbumType=$this->SystemCode->getWhere('album_type','')->pluck('zh_code_val','code_id')->toArray();
-//
-//        \Debugbar::info($AlbumType);
 
 
         $CarouselContent = $this->AlbumService->RefleshView();
@@ -90,7 +88,7 @@ class AlbumController extends Controller
             $QueryResult = $this->objAlbum->getAlbumByCondition($request,$Columns);
 
             $data=$this->PaginationService->page($request->page,$QueryResult,'5','1');
-            \Debugbar::info($data);
+//            \Debugbar::info($data);
             $Return = $this->AlbumService->getPage($request->page,$data);
 
             DB::connection()->getPdo()->commit();
@@ -181,7 +179,7 @@ class AlbumController extends Controller
     }
 
     public function LoadOriginItem(Request $request){
-        \Debugbar::info($request);
+//        \Debugbar::info($request);
 //        $strAlbumId=$this->objAlbum->GetAlbumId($strAlbumName);
 //        $strImages=$this->objAlbumD->GetAlbumInfo($strAlbumId);
 //        $data=$this->AlbumService->GetAlbumContent($strImages);
@@ -228,7 +226,6 @@ class AlbumController extends Controller
             foreach($DeletePhotoNameList as $index => $item){
                 $DeleteFileList[$index] = $DeletePhotoPath.$item->photo_name;
             }
-//            debug($DeleteFileList);
             $this->UploadFileService->DeleteFile($DeleteFileList);
             $this->AlbumService->DeleteAlbum($Condition->album_id);
 
@@ -285,7 +282,7 @@ class AlbumController extends Controller
 
             $Html = view('admin.album.edit_collapse_two')->with("data",$AlbumContentPaging)->render();
 
-            \Debugbar::info("刪除完成");
+//            \Debugbar::info("刪除完成");
 
             return Response::json(array('html'=>$Html));
 
@@ -364,7 +361,7 @@ class AlbumController extends Controller
         $data=$this->PaginationService->page($request->page,$QueryResult,'5','1');
 
         $Return = $this->AlbumService->getPage($request->page,$data);
-        \Debugbar::info($Return);
+//        \Debugbar::info($Return);
 
         return response ()->json ( $Return,200);
     }
@@ -373,7 +370,6 @@ class AlbumController extends Controller
 
         $Columns = array('id','album_id','photo_name','photo_path');
         $Condition = new StdClass();
-        debug($request->page);
         $Condition->album_id = [$request->album_id];
 //        $Condition->album_id = [$request->album_id];
         $Condition->id = [''];

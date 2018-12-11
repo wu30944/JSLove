@@ -45,7 +45,7 @@ class SaleController extends Controller
         //
         $ChartModel=$this->SystemCode->getWhere('chart','')->pluck('zh_code_val','code_id')->toArray();
         $StoreName = $this->AdminsRepository->getAll()->pluck('store_name','id')->toArray();
-//         \Debugbar::info($StoreName->pluck('id','store_name')->toArray());
+//         //\Debugbar::info($StoreName->pluck('id','store_name')->toArray());
         return view('admin.sale.index')->with('ChartModel',$ChartModel)->with('StoreName',$StoreName);
     }
 

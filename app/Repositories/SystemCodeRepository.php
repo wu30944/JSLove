@@ -76,7 +76,7 @@
 
         public function delete($id)
         {
-            // \Debugbar::info($id);
+            // //\Debugbar::info($id);
             $data = $this->SystemCodeRepository->find($id)->delete();
             //MeetingInfo::find ( $request->id )->delete ();
             return response ()->json ();

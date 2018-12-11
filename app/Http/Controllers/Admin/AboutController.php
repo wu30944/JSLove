@@ -64,7 +64,7 @@ class AboutController extends Controller
             $QueryResult = $this->AboutRepository->getAboutByCondition($request,$Columns);
 
             $data=$this->PaginationService->page($request->page,$QueryResult,'5','1');
-            \Debugbar::info($data);
+//            \Debugbar::info($data);
             $Return = $this->AboutService->getPage($request->page,$data);
 
             DB::connection()->getPdo()->commit();
@@ -104,7 +104,7 @@ class AboutController extends Controller
 
         }catch (\PDOException $e)
         {
-            \Debugbar::info($e->getMessage());
+//            \Debugbar::info($e->getMessage());
             DB::connection()->getPdo()->rollBack();
             return response ()->json ( ['test'=>$e->getMessage()],404);
         }
@@ -151,7 +151,7 @@ class AboutController extends Controller
         try{
 
             $about = $this->AboutService->ById($request->id);
-            \Debugbar::info($request->zh_company_name);
+//            \Debugbar::info($request->zh_company_name);
 
             DB::connection()->getPdo()->beginTransaction();
             $about->update($request->all());
@@ -170,7 +170,7 @@ class AboutController extends Controller
 
         }catch (\PDOException $e)
         {
-            \Debugbar::info($e->getMessage());
+//            \Debugbar::info($e->getMessage());
             DB::connection()->getPdo()->rollBack();
             return response ()->json ( ['test'=>$e->getMessage()],404);
         }
@@ -203,7 +203,7 @@ class AboutController extends Controller
 
         }catch (\PDOException $e)
         {
-            \Debugbar::info($e->getMessage());
+//            \Debugbar::info($e->getMessage());
             DB::connection()->getPdo()->rollBack();
             return response ()->json ( ['test'=>$e->getMessage()],404);
         }

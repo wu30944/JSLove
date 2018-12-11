@@ -26,7 +26,7 @@ class NavigateController extends BaseController
     {
         $rules = $this->NavigateService->getRulesTree();
 
-        \Debugbar::info('test');
+        //\Debugbar::info('test');
 
         return $this->view(null,compact('rules'));
     }
@@ -75,7 +75,7 @@ class NavigateController extends BaseController
     public function update(RuleRequest $request, $id)
     {
         $rule = $this->NavigateService->ById($id);
-        \Debugbar::info($rule);
+        //\Debugbar::info($rule);
         if(is_null($rule))
         {
             flash('你无权操作')->error()->important();
