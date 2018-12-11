@@ -50,15 +50,13 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $strAlbumId=$this->AlbumRepository->GetBannerAlbumId();
-        $Columns = array('id','album_id','photo_name','photo_path','photo_thumb_path','photo_virtual_path');
-        $AlbumContent = $this->AlbumDRepository->getAlbumDByCondition($strAlbumId,$Columns);
+//        $strAlbumId=$this->AlbumRepository->GetBannerAlbumId();
+//        $Columns = array('id','album_id','photo_name','photo_path','photo_thumb_path','photo_virtual_path');
+//        $AlbumContent = $this->AlbumDRepository->getAlbumDByCondition($strAlbumId,$Columns);
 
         $Carousel = $this->CarouselService->WebShow()->get();
-//        //\Debugbar::info($Carousel[0]->description);
 
         $About = $this->AboutService->ById(5);
-        //\Debugbar::info($About);
 
         $News = $this->NewsService->WebShow()->orderBy('action_date','desc')->take(4)->get();
 
@@ -68,7 +66,6 @@ class IndexController extends Controller
 
         $StoreInfo = $this->StoreInfoService->WebShow();
 
-//        //\Debugbar::info($StoreInfo);
 
         return view('joyslove.home.home')->with('Banner',$Carousel)
                                               ->with('About',$About)

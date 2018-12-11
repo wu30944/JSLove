@@ -58,9 +58,7 @@ class AlbumController extends Controller
 //        $data=$this->PaginationService->page('',$QueryResult,'5','1');
 
         $AlbumType=$this->SystemCode->getWhere('album_type','')->pluck('zh_code_val','code_id')->toArray();
-//
-//        \Debugbar::info($AlbumType);
-        debug($AlbumType);
+
 
         $CarouselContent = $this->AlbumService->RefleshView();
 
@@ -228,7 +226,6 @@ class AlbumController extends Controller
             foreach($DeletePhotoNameList as $index => $item){
                 $DeleteFileList[$index] = $DeletePhotoPath.$item->photo_name;
             }
-//            debug($DeleteFileList);
             $this->UploadFileService->DeleteFile($DeleteFileList);
             $this->AlbumService->DeleteAlbum($Condition->album_id);
 
@@ -373,7 +370,6 @@ class AlbumController extends Controller
 
         $Columns = array('id','album_id','photo_name','photo_path');
         $Condition = new StdClass();
-        debug($request->page);
         $Condition->album_id = [$request->album_id];
 //        $Condition->album_id = [$request->album_id];
         $Condition->id = [''];
