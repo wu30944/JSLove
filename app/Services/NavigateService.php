@@ -70,7 +70,7 @@ class NavigateService
     public function getRulesTree()
     {
         $rules = $this->NavigateRepository->getRules()->toArray();
-        \Debugbar::info($rules);
+        //\Debugbar::info($rules);
         return Tree::tree($rules,'name','id','parent_id');
     }
 

@@ -59,7 +59,7 @@ class AlbumService {
 
 
         foreach ($this->Files as $file) {
-            //\Debugbar::info($path);
+            ////\Debugbar::info($path);
             $ImageName = $file->getClientOriginalName();
             //$uploadFlag = $file->move($path,$ImageName);
             /*
@@ -73,12 +73,12 @@ class AlbumService {
                 file_get_contents($file->getRealPath())
             );
 
-            \Debugbar::info(storage_path());
-            \Debugbar::info(Storage::url($this->VirtualStoragePath));
-            \Debugbar::info(URL::to(Storage::url($this->FullAlbumPath.'/'.$ImageName)));
-            \Debugbar::info(Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix());
-            \Debugbar::info(URL::to(Storage::url($this->FullAlbumPath.'/'.$ImageName)));
-            \Debugbar::info(URL::to(Storage::url($this->FullAlbumPath.'/'.$ImageName)));
+            //\Debugbar::info(storage_path());
+            //\Debugbar::info(Storage::url($this->VirtualStoragePath));
+            //\Debugbar::info(URL::to(Storage::url($this->FullAlbumPath.'/'.$ImageName)));
+            //\Debugbar::info(Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix());
+            //\Debugbar::info(URL::to(Storage::url($this->FullAlbumPath.'/'.$ImageName)));
+            //\Debugbar::info(URL::to(Storage::url($this->FullAlbumPath.'/'.$ImageName)));
 
             if($uploadFlag){
                 //Using Imagick:
@@ -140,14 +140,14 @@ class AlbumService {
             $data = array('image' => $strFiles->file('fileupload'));
             // Validation
             $validation = Validator::make($data, $rules);
-//            \Debugbar::info($strFiles);
+//            //\Debugbar::info($strFiles);
             if ($validation->fails())
             {
-                \Debugbar::info('433');
+                //\Debugbar::info('433');
                 throw new Exception($validation->messages()->all()); // 丟出一個測試用的例外
             }
 
-            \Debugbar::info($strFiles->file('fileupload'));
+            //\Debugbar::info($strFiles->file('fileupload'));
             $this->Files=$strFiles->file('fileupload');
 
         }

@@ -27,7 +27,7 @@ class ActionLogsController extends BaseController
         
         $strToArray=$actions->toArray();
 
-        \Debugbar::info($strToArray['data']);
+//        \Debugbar::info($strToArray['data']);
 //        \Debugbar::info($actions[0]->admin->role)
 
         return $this->view(null)->with('actions',$actions);

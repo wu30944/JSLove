@@ -55,10 +55,10 @@ class IndexController extends Controller
         $AlbumContent = $this->AlbumDRepository->getAlbumDByCondition($strAlbumId,$Columns);
 
         $Carousel = $this->CarouselService->WebShow()->get();
-//        \Debugbar::info($Carousel[0]->description);
+//        //\Debugbar::info($Carousel[0]->description);
 
         $About = $this->AboutService->ById(5);
-        \Debugbar::info($About);
+        //\Debugbar::info($About);
 
         $News = $this->NewsService->WebShow()->orderBy('action_date','desc')->take(4)->get();
 
@@ -68,7 +68,7 @@ class IndexController extends Controller
 
         $StoreInfo = $this->StoreInfoService->WebShow();
 
-//        \Debugbar::info($StoreInfo);
+//        //\Debugbar::info($StoreInfo);
 
         return view('joyslove.home.home')->with('Banner',$Carousel)
                                               ->with('About',$About)

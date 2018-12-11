@@ -44,8 +44,8 @@ class MenuController extends Controller
         $columns = array('menu_name');
         $request->menu_name='';
         $dtMenuTitle = $this->MenuRepository->GetByCondition($request,$columns)->groupBy('menu_name')->get();
-//        \Debugbar::info($dtMenu->toArray());
-//        \Debugbar::info($dtMenuTitle->toArray());
+//        ////\Debugbar::info($dtMenu->toArray());
+//        //\Debugbar::info($dtMenuTitle->toArray());
 
         return view('admin.menu.index')->with('Menu',$dtMenu)
                                             ->with('Title',$dtMenuTitle);
@@ -68,10 +68,10 @@ class MenuController extends Controller
 
         $CreateMenuContent = $this->MenuService->GetCreateContent($param,$Columns);
 
-//        \Debugbar::info($EditMenuContent['Title']->count());
+//        //\Debugbar::info($EditMenuContent['Title']->count());
 
         $html = view('admin.menu.create')->with('Title',$CreateMenuContent['Title'])->render();
-//        \Debugbar::info($html);
+//        //\Debugbar::info($html);
         return response ()->json ( compact('html'),200);
 
 
@@ -90,7 +90,7 @@ class MenuController extends Controller
             DB::connection()->getPdo()->beginTransaction();
 
             $this->MenuService->create($request->all());
-            \Debugbar::info($request->all());
+            //\Debugbar::info($request->all());
             DB::connection()->getPdo()->commit();
 
             $Content = $this->MenuService->RefleshView();
@@ -101,7 +101,7 @@ class MenuController extends Controller
 
         }catch (\PDOException $e)
         {
-            \Debugbar::info($e->getMessage());
+            //\Debugbar::info($e->getMessage());
             DB::connection()->getPdo()->rollBack();
             return response ()->json ( ['test'=>$e->getMessage()],404);
         }
@@ -137,10 +137,10 @@ class MenuController extends Controller
         
         $EditMenuContent = $this->MenuService->GetEditContent($param,$columns);
 
-//        \Debugbar::info($EditMenuContent['Title']->count());
+//        //\Debugbar::info($EditMenuContent['Title']->count());
 
         $html = view('admin.menu.edit')->with('Title',$EditMenuContent['Title'])->with('Menu',$EditMenuContent['MenuContent']->first())->render();
-//        \Debugbar::info($html);
+//        //\Debugbar::info($html);
         return response ()->json ( compact('html'),200);
 //        return response ()->json ( $Menu->get()->toArray()[0],200);
 
@@ -173,7 +173,7 @@ class MenuController extends Controller
 
         $Content = $this->MenuService->RefleshView();
 
-        \Debugbar::info($Content['Title']);
+        //\Debugbar::info($Content['Title']);
 
         $html = view('admin.menu.query')->with('Title',$Content["Title"])->with('Menu',$Content["Menu"])->render();
 
@@ -192,7 +192,7 @@ class MenuController extends Controller
         //
         try{
             DB::connection()->getPdo()->beginTransaction();
-            \Debugbar::info($request->id);
+            //\Debugbar::info($request->id);
 
             $Model = $this->MenuService->ById($request->id);
             $this->MenuService->Destroy($Model);
@@ -207,7 +207,7 @@ class MenuController extends Controller
 
         }catch (\PDOException $e)
         {
-            \Debugbar::info($e->getMessage());
+            //\Debugbar::info($e->getMessage());
             DB::connection()->getPdo()->rollBack();
             return response ()->json ( ['test'=>$e->getMessage()],404);
         }

@@ -34,7 +34,7 @@ class PosController extends Controller
         //將還未完成的訂單資料帶出
         $dtUserOrder = $this->UserOrderRepository->DivideOrderContent($this->UserOrderRepository->getTodayUserOrderStatus([2]));
 
-        \Debugbar::info($dtUserOrder);
+        //\Debugbar::info($dtUserOrder);
         return view('admin.pos.index')->with('dtFlavor',$dtFlavor)->with('dtUserOrder',$dtUserOrder);
     }
 
@@ -178,7 +178,7 @@ class PosController extends Controller
 
         $strOrderSerialNo = $request->order_serial_no;
         $dtOrder = $this->UserOrderRepository->getOrderDetail($strOrderSerialNo);
-        \Debugbar::info('1');
+        //\Debugbar::info('1');
         return response ()->json ( ['ServerNo'=>'200','Data'=>$dtOrder],200);
     }
 
@@ -187,7 +187,7 @@ class PosController extends Controller
         try{
             DB::connection()->getPdo()->beginTransaction();
 
-            \Debugbar::info($request->order_serial_no);
+            //\Debugbar::info($request->order_serial_no);
 
             $this->UserOrderRepository->DestroyByOrderSerialNo($request->order_serial_no);
 

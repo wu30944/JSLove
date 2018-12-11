@@ -60,7 +60,7 @@ class AlbumController extends Controller
         $AlbumType=$this->SystemCode->getWhere('album_type','')->pluck('zh_code_val','code_id')->toArray();
 //
 //        \Debugbar::info($AlbumType);
-
+        debug($AlbumType);
 
         $CarouselContent = $this->AlbumService->RefleshView();
 
@@ -90,7 +90,7 @@ class AlbumController extends Controller
             $QueryResult = $this->objAlbum->getAlbumByCondition($request,$Columns);
 
             $data=$this->PaginationService->page($request->page,$QueryResult,'5','1');
-            \Debugbar::info($data);
+//            \Debugbar::info($data);
             $Return = $this->AlbumService->getPage($request->page,$data);
 
             DB::connection()->getPdo()->commit();
@@ -181,7 +181,7 @@ class AlbumController extends Controller
     }
 
     public function LoadOriginItem(Request $request){
-        \Debugbar::info($request);
+//        \Debugbar::info($request);
 //        $strAlbumId=$this->objAlbum->GetAlbumId($strAlbumName);
 //        $strImages=$this->objAlbumD->GetAlbumInfo($strAlbumId);
 //        $data=$this->AlbumService->GetAlbumContent($strImages);
@@ -285,7 +285,7 @@ class AlbumController extends Controller
 
             $Html = view('admin.album.edit_collapse_two')->with("data",$AlbumContentPaging)->render();
 
-            \Debugbar::info("刪除完成");
+//            \Debugbar::info("刪除完成");
 
             return Response::json(array('html'=>$Html));
 
@@ -364,7 +364,7 @@ class AlbumController extends Controller
         $data=$this->PaginationService->page($request->page,$QueryResult,'5','1');
 
         $Return = $this->AlbumService->getPage($request->page,$data);
-        \Debugbar::info($Return);
+//        \Debugbar::info($Return);
 
         return response ()->json ( $Return,200);
     }

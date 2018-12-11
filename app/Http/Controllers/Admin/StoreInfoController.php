@@ -90,7 +90,7 @@ class StoreInfoController extends Controller
 
         }catch (\PDOException $e)
         {
-            \Debugbar::info($e->getMessage());
+            //\Debugbar::info($e->getMessage());
             DB::connection()->getPdo()->rollBack();
             return response ()->json ( ['test'=>$e->getMessage()],404);
         }
@@ -115,7 +115,7 @@ class StoreInfoController extends Controller
         $columns = array('id','store_name','local','address','open_time','close_time','telephone','is_hidden','status');
         $param = ['id'=>$id,'store_name'=>'','local'=>'','is_hidden'=>'','status'=>''];
         $StoreInfo = $this->StoreInfoService->getStoreInfoContent($param,$columns);
-        \Debugbar::info($StoreInfo->get()->toArray()[0]);
+        //\Debugbar::info($StoreInfo->get()->toArray()[0]);
 
         return response ()->json ( $StoreInfo->get()->toArray()[0],200);
 
@@ -144,7 +144,7 @@ class StoreInfoController extends Controller
 //        }
 
         $storeInfo->update($request->all());
-        \Debugbar::info('Debug:'.$request->status);
+        //\Debugbar::info('Debug:'.$request->status);
 
         $currentPage=$request->page;
         $columns = array('id','store_name');

@@ -83,14 +83,14 @@ class UploadFileService
                 $UploadState->FileName = $FileName;
                 $UploadState->Flag = $uploadFlag;
                 $UploadState->Url = str_replace(" ","",$this->GetFileUrl('files',$FolderName,$FileName));
-                \Debugbar::info($UploadState->Url);
+                //\Debugbar::info($UploadState->Url);
 
                 $data[]=$UploadState;
 
                 $FileCount++;
             }
         }
-        \Debugbar::info($data);
+        //\Debugbar::info($data);
         return $data;
     }
 
@@ -226,7 +226,7 @@ class UploadFileService
 //                $FileCount++;
             }
         }
-//        \Debugbar::info($data);
+//        //\Debugbar::info($data);
         return $data;
     }
 
