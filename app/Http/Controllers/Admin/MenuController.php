@@ -140,7 +140,7 @@ class MenuController extends Controller
 //        //\Debugbar::info($EditMenuContent['Title']->count());
 
         $html = view('admin.menu.partial_edit')->with('Title',$EditMenuContent['Title'])->with('Menu',$EditMenuContent['MenuContent']->first())->render();
-        \Debugbar::info($html);
+//        \Debugbar::info($html);
         return response ()->json ( compact('html'),200);
 //        return response ()->json ( $Menu->get()->toArray()[0],200);
 
