@@ -85,7 +85,8 @@
                 <div id="partial"></div>
                  @include('admin.menu.query')
                  @include('admin.menu.destroy')
-                 {{--@include('admin.menu.edit')--}}
+                 @include('admin.menu.edit')
+                 @include('admin.menu.create')
             </div>
         </div>
     </div>
@@ -241,7 +242,6 @@
                         });
 
                     }
-
                     formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
                     formData.append("id",$('#id').val());
                     formData.append("prod_name",$("#prod_name").val());
@@ -339,7 +339,8 @@
             },
             success: function(data) {
 
-                    $('#partial').html(data['html']);
+                    $('#partial_edit').html(data['html']);
+                    $('#partial_create').html('');
                     $('#edit_modal').modal('show');
 
                 },error:function(e)
@@ -369,7 +370,8 @@
                 },
                 success: function(data) {
 
-                    $('#partial').html(data['html']);
+                    $('#partial_create').html(data['html']);
+                    $('#partial_edit').html('');
                     $('#create_modal').modal('show');
 
                 },error:function(e)
