@@ -96,6 +96,25 @@
         i=showLoadLayer();
     });
 
+    /**
+     * IE瀏覽器在使用modal時，會被背景疊到，導致無法編輯，所以需要加入下方Script解決此問題
+     * @type {number}
+     */
+    var checkeventcount = 1,prevTarget;
+    $('.modal').on('show.bs.modal', function (e) {
+        if(typeof prevTarget == 'undefined' || (checkeventcount==1 && e.target!=prevTarget))
+        {
+            prevTarget = e.target;
+            checkeventcount++;
+            e.preventDefault();
+            $(e.target).appendTo('body').modal('show');
+        }
+        else if(e.target==prevTarget && checkeventcount==2)
+        {
+            checkeventcount--;
+        }
+    });
+
 </script>
 @yield('footer-js')
 </body>

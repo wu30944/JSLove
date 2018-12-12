@@ -130,7 +130,8 @@ return [
     'time'=>'時間',
     'position'=>'地點',
     'contact_us'=>'與我們聯絡',
-    'batch_delete'=>'整批刪除'
+    'batch_delete'=>'整批刪除',
+    'menu_name'=>'菜單別'
 
 
 

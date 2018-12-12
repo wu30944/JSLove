@@ -70,7 +70,7 @@ class MenuController extends Controller
 
 //        //\Debugbar::info($EditMenuContent['Title']->count());
 
-        $html = view('admin.menu.create')->with('Title',$CreateMenuContent['Title'])->render();
+        $html = view('admin.menu.partial_create')->with('Title',$CreateMenuContent['Title'])->render();
 //        //\Debugbar::info($html);
         return response ()->json ( compact('html'),200);
 
@@ -139,8 +139,8 @@ class MenuController extends Controller
 
 //        //\Debugbar::info($EditMenuContent['Title']->count());
 
-        $html = view('admin.menu.edit')->with('Title',$EditMenuContent['Title'])->with('Menu',$EditMenuContent['MenuContent']->first())->render();
-//        //\Debugbar::info($html);
+        $html = view('admin.menu.partial_edit')->with('Title',$EditMenuContent['Title'])->with('Menu',$EditMenuContent['MenuContent']->first())->render();
+//        \Debugbar::info($html);
         return response ()->json ( compact('html'),200);
 //        return response ()->json ( $Menu->get()->toArray()[0],200);
 
@@ -150,7 +150,6 @@ class MenuController extends Controller
 
     public function update(Request $request)
     {
-
         $UploadService = new UploadFileService();
 
         $Data = $UploadService->UploadFiles($request,'menu');

@@ -53,7 +53,7 @@ class CarouselController extends Controller
      */
     public function create()
     {
-        $html = view('admin.carousel.create')->render();
+        $html = view('admin.carousel.partial_create')->render();
         return response ()->json (compact('html'),200);
 
     }
@@ -123,7 +123,7 @@ class CarouselController extends Controller
 
         $EditMenuContent = $this->CarouselService->ById($id);
 
-        $html = view('admin.carousel.edit')->with("Carousel",$EditMenuContent)->render();
+        $html = view('admin.carousel.partial_edit')->with("Carousel",$EditMenuContent)->render();
         return response ()->json ( compact('html'),200);
 //        return response ()->json ( $Menu->get()->toArray()[0],200);
 
