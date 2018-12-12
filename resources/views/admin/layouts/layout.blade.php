@@ -62,6 +62,7 @@
             $(this).css('z-index', zIndex);
 
         });
+
     });
 
     $(window).load(function() {
@@ -114,6 +115,8 @@
             checkeventcount--;
         }
     });
+
+    $('.modal').attr('data-backdrop','static');
 
 </script>
 @yield('footer-js')
