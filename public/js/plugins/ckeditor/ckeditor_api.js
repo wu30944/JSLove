@@ -27,7 +27,9 @@
                 20170915.  建立CKEDITOR物件
                 如果在建立該物件時，有傳入視窗高度，則建立時使用使用者定義的大小，不然就是用預設高度
             */
-            function CreateCKEDITOR($objID, $height = 0) {
+            function CreateCKEDITOR($objID, $height) {
+                if (!$height) $height=0;
+
                 if ($height != 0) {
                     return CKEDITOR.replace($objID, {
                         skin: "kama",
