@@ -27,7 +27,8 @@
                 <div id="partial"></div>
                  @include('admin.carousel.query')
                  @include('admin.carousel.destroy')
-                 {{--@include('admin.menu.edit')--}}
+                 @include('admin.carousel.edit')
+                 @include('admin.carousel.create')
 
             </div>
         </div>
@@ -293,7 +294,8 @@
             },
             success: function(data) {
 
-                    $('#partial').html(data['html']);
+                    $('#partial_edit').html(data['html']);
+                    $('#partial_create').html('');
                     $('#edit_modal').modal('show');
 
                 },error:function(e)
@@ -323,7 +325,8 @@
                 },
                 success: function(data) {
 
-                    $('#partial').html(data['html']);
+                    $('#partial_create').html(data['html']);
+                    $('#partial_edit').html('');
                     $('#create_modal').modal('show');
 
                 },error:function(e)

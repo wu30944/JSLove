@@ -150,7 +150,6 @@ class MenuController extends Controller
 
     public function update(Request $request)
     {
-        \Debugbar::info($request->id);
         $UploadService = new UploadFileService();
 
         $Data = $UploadService->UploadFiles($request,'menu');
