@@ -323,7 +323,7 @@
             $('.divbox').removeClass('divClick');
             $(this).addClass('divClick');
 
-            strSelectCount=$('.divClick').size();
+            strSelectCount=$('.divClick').length;
 
             $(".edit-modal").val($(this).attr("id"));
             $("#btn-destroy").val($(this).attr("id"));

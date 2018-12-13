@@ -6,7 +6,6 @@
 @endsection
 
 @section('content')
-
     <div class="row">
         <div class="col-sm-12">
             <div class="ibox-title">
@@ -29,7 +28,6 @@
                  @include('admin.carousel.destroy')
                  @include('admin.carousel.edit')
                  @include('admin.carousel.create')
-
             </div>
         </div>
     </div>

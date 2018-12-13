@@ -42,11 +42,6 @@ class NewsController extends Controller
 
         $data = $this->PaginationService->page(1,$NewsContent,'5','1');
 
-        $Models = $this->NewsService->ById(1);
-
-        //\Debugbar::info($data);
-
-
         return view('admin.news.index')->with("data",$data);
     }
 
