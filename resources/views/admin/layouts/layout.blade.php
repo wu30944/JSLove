@@ -114,11 +114,20 @@
         }
     });
 
-//    $(document).on('show.bs.modal', '.modal', function (event) {
-//
-//
-//    });
+    /**
+     * 目的：清空ckeditor instance，避免資料重複
+     *
+     *  解決使用modal後，會有一層灰色背景覆蓋，
+     *  所以加了一段script解決此問題，但該段Script會導致ckeditor無效
+     *  所以將ckeditor在每次進行編輯、建立都進行註冊動作，避免重複註冊，就建立前，都先將原來註冊的給刪除
+     * */
+    function ClearCKEditorInstance(){
 
+        for (name in CKEDITOR.instances)
+        {
+            CKEDITOR.instances[name].destroy(true);
+        }
+    }
 
 </script>
 @yield('footer-js')

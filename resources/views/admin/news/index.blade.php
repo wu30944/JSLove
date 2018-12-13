@@ -54,26 +54,20 @@
             }
         });
 
-        var ckEditor = CKEDITOR.replace('content', {
-            filebrowserImageUploadUrl:'{{route('files.upload')}}?_token={{csrf_token()}}'
-        });
+        function RegisterEditCKEditor(){
+            return CKEDITOR.replace('content', {
+                filebrowserImageUploadUrl:'{{route('files.upload')}}?_token={{csrf_token()}}'
+            });
+        }
 
-        var c_ckEditor = CKEDITOR.replace('c_content', {
-            filebrowserImageUploadUrl:'{{route('files.upload')}}?_token={{csrf_token()}}'
-//            on: {
-//                focus: onFocus,
-//                blur: onBlur,
-//
-//                // Check for availability of corresponding plugins.
-//                pluginsLoaded: function( evt ) {
-//                    var doc = CKEDITOR.document, ed = evt.editor;
-//                    if ( !ed.getCommand( 'bold' ) )
-//                        doc.getById( 'exec-bold' ).hide();
-//                    if ( !ed.getCommand( 'link' ) )
-//                        doc.getById( 'exec-link' ).hide();
-//                }
-//            }
-        });
+        function RegisterCreateCKEditor(){
+            return CKEDITOR.replace('c_content', {
+                filebrowserImageUploadUrl:'{{route('files.upload')}}?_token={{csrf_token()}}'
+
+            });
+
+        }
+
 
         var pagination_url = '{{route('news.paginate')}}';
 
@@ -213,6 +207,7 @@
                 submitHandler: function(form) {
                     var layer_id ;
                     var formData = new FormData();
+                    var ckEditor = CKEDITOR.instances['content'];
 
                     formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
                     formData.append("id",$('#id').val());
@@ -358,6 +353,9 @@
                 },
                 success: function(data) {
 
+                    ClearCKEditorInstance();        //此function寫在layout.blade.php中
+                    ckEditor = RegisterEditCKEditor();
+
                     $('#id').val(data['id']);
                     $('#title').val(data['title']);
                     $('#action_date').val(data['action_date']);
@@ -379,9 +377,10 @@
         });
 
         $(document).on('click', '.create-modal', function() {
+            ClearCKEditorInstance();        //此function寫在layout.blade.php中
+            ckEditor = RegisterCreateCKEditor();
             $('#create_modal').modal('show');
         });
-
 
         /**
          *
@@ -403,6 +402,7 @@
 
                     var layer_id ;
                     var formData = new FormData();
+                    var c_ckEditor = CKEDITOR.instances['c_content'];
 
                     formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
                     formData.append("id",$('#id').val());
