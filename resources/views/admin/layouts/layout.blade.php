@@ -57,12 +57,6 @@
     {
         NProgress.start();
 
-        $(document).on('show.bs.modal', '.modal', function (event) {
-            var zIndex = 1040 + (10 * $('.modal:visible').length);
-            $(this).css('z-index', zIndex);
-
-        });
-
     });
 
     $(window).load(function() {
@@ -103,6 +97,10 @@
      */
     var checkeventcount = 1,prevTarget;
     $('.modal').on('show.bs.modal', function (e) {
+
+        var zIndex = 1040 + (10 * $('.modal:visible').length);
+        $(this).css('z-index', zIndex);
+
         if(typeof prevTarget == 'undefined' || (checkeventcount==1 && e.target!=prevTarget))
         {
             prevTarget = e.target;
@@ -116,7 +114,11 @@
         }
     });
 
-    $('.modal').attr('data-backdrop','static');
+//    $(document).on('show.bs.modal', '.modal', function (event) {
+//
+//
+//    });
+
 
 </script>
 @yield('footer-js')
