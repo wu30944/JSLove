@@ -93,7 +93,6 @@
                 },
                 success: function(data) {
 
-                    $('#destroy_photo_modal').hide();
                     $('#collapse_two_content').html(data['html']);
 
                 },error:function(e)
@@ -274,10 +273,6 @@
             this.reset();
         });
     }
-
-    $(document).on('click', '#delete-cancel', function() {
-        $('#destroy_photo_modal').hide();
-    });
 
 
 </script>
