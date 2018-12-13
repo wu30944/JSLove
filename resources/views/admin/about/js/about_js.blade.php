@@ -4,37 +4,42 @@
     <script src="{{ loadEdition('/js/plugins/ckeditor/ckeditor_api.js')}}"></script>
     <script>
 // Replace the <textarea id="editor_t"> with an CKEditor instance.
-        var objEditor1=CKEDITOR.replace( 'zh_introduction', {
+
+    function RegisterEditCKEditor() {
+        return CKEDITOR.replace('zh_introduction', {
             on: {
                 focus: onFocus,
                 blur: onBlur,
 
                 // Check for availability of corresponding plugins.
-                pluginsLoaded: function( evt ) {
+                pluginsLoaded: function (evt) {
                     var doc = CKEDITOR.document, ed = evt.editor;
-                    if ( !ed.getCommand( 'bold' ) )
-                        doc.getById( 'exec-bold' ).hide();
-                    if ( !ed.getCommand( 'link' ) )
-                        doc.getById( 'exec-link' ).hide();
+                    if (!ed.getCommand('bold'))
+                        doc.getById('exec-bold').hide();
+                    if (!ed.getCommand('link'))
+                        doc.getById('exec-link').hide();
                 }
             }
         });
+    }
 
-        var objEditor2=CKEDITOR.replace( 'c_zh_introduction', {
+    function RegisterCreateCKEditor() {
+        var objEditor2 = CKEDITOR.replace('c_zh_introduction', {
             on: {
                 focus: onFocus,
                 blur: onBlur,
 
                 // Check for availability of corresponding plugins.
-                pluginsLoaded: function( evt ) {
+                pluginsLoaded: function (evt) {
                     var doc = CKEDITOR.document, ed = evt.editor;
-                    if ( !ed.getCommand( 'bold' ) )
-                        doc.getById( 'exec-bold' ).hide();
-                    if ( !ed.getCommand( 'link' ) )
-                        doc.getById( 'exec-link' ).hide();
+                    if (!ed.getCommand('bold'))
+                        doc.getById('exec-bold').hide();
+                    if (!ed.getCommand('link'))
+                        doc.getById('exec-link').hide();
                 }
             }
         });
+    }
 
         var pagination_url = '{{route('flavor.paginate')}}';
 
@@ -72,6 +77,9 @@
                 },
                 success: function(data) {
 
+                    ClearCKEditorInstance();        //此function寫在layout.blade.php中
+                    ckEditor = RegisterEditCKEditor();
+
                     $('#id').val(data['Data'].id);
                     $('#zh_company_name').val(data['Data'].zh_company_name);
                     $('#en_company_name').val(data['Data'].en_company_name);
@@ -82,7 +90,7 @@
                     $('#status').val(data['Data'].status);
                     $('#uniform_number').val(data['Data'].uniform_number);
                     $('#fex').val(data['Data'].fex);
-                    SetContents(objEditor1,data['Data'].zh_introduction);
+                    SetContents(ckEditor,data['Data'].zh_introduction);
 
                     if(data['Data'].status==1){
                         $("#status").val(1);
@@ -207,6 +215,7 @@
                     {{--});--}}
                 var id=$('#id').val();
                 var layer_id ;
+                var ckEditor = CKEDITOR.instances['zh_introduction'];
 
                 $.ajax({
                         type: 'post',
@@ -218,7 +227,7 @@
                             'en_company_name':$('#en_company_name').val(),
                             'address':$('#address').val(),
                             'telephone':$('#telephone').val(),
-                            'zh_introduction':GetContents(objEditor1),
+                            'zh_introduction':GetContents(ckEditor),
                             'en_introduction':$('#en_introduction').val(),
                             'email':$('#email').val(),
                             'status':$('#status').val(),
@@ -282,6 +291,8 @@
             submitHandler: function(form) {
                     layer.msg('{{trans('message.data_submit')}}');
                     var layer_id ;
+                    var ckEditor = CKEDITOR.instances['c_zh_introduction'];
+
                     $.ajax({
                             type: 'post',
                             url: '{{route('about.store')}}',
@@ -291,7 +302,7 @@
                                 'en_company_name':$('#c_en_company_name').val(),
                                 'address':$('#c_address').val(),
                                 'telephone':$('#c_telephone').val(),
-                                'zh_introduction':$('#c_zh_introduction').val(),
+                                'zh_introduction': GetContents(ckEditor),
                                 'en_introduction':$('#c_en_introduction').val(),
                                 'email':$('#c_email').val(),
                                 'status':$('#c_status').val(),
@@ -323,6 +334,8 @@
         });
 
         $(document).on('click', '.create-modal', function() {
+            ClearCKEditorInstance();        //此function寫在layout.blade.php中
+            ckEditor = RegisterCreateCKEditor();
             $('#create_modal').modal('show');
         });
 
