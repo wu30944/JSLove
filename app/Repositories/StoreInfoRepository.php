@@ -72,17 +72,18 @@ class StoreInfoRepository
 
     public function create(array $param){
 
-        $data = new StoreInfo();
-        $data->store_name = $param['store_name'];
-        $data->local = $param['local'];
-        $data->address = $param['address'];
-        $data->open_time = $param['open_time'];
-        $data->close_time = $param['close_time'];
-        $data->telephone = $param['telephone'];
-        $data->is_hidden = $param['is_hidden'];
-        $data->status= $param['status'];
-
-        $data->save ();
+        StoreInfo::create($param);
+//        $data = new StoreInfo();
+//        $data->store_name = $param['store_name'];
+//        $data->local = $param['local'];
+//        $data->address = $param['address'];
+//        $data->open_time = $param['open_time'];
+//        $data->close_time = $param['close_time'];
+//        $data->telephone = $param['telephone'];
+//        $data->is_hidden = $param['is_hidden'];
+//        $data->status= $param['status'];
+//
+//        $data->save ();
 
     }
 

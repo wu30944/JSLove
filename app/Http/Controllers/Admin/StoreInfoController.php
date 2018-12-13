@@ -30,13 +30,13 @@ class StoreInfoController extends Controller
         //
         //
 
-        $columns = array('id','store_name');
+        $columns = array('id','store_name','address','telephone','open_time','close_time','status');
         $param = ['id'=>'','store_name'=>'','local'=>'','is_hidden'=>'','status'=>''];
         $StoreInfo = $this->StoreInfoService->getStoreInfoContent($param,$columns);
 
         $data=$this->PaginationService->page(1,$StoreInfo,'5','1');
 
-        return view('admin.store_info.index')->with('StoreInfo',$StoreInfo->get())->with('data',$data);
+        return view('admin.store_info.index')->with('data',$data);
 
     }
 
@@ -60,7 +60,28 @@ class StoreInfoController extends Controller
     public function store(Request $request)
     {
         //
-        return redirect()->route('store_info.index');
+        try{
+            DB::connection()->getPdo()->beginTransaction();
+            $this->StoreInfoService->create($request->toArray());
+            DB::connection()->getPdo()->commit();
+
+            $columns = array('id','store_name','local','address','open_time','close_time','telephone','is_hidden','status');
+            $param = ['id'=>'','store_name'=>'','local'=>'','is_hidden'=>'','status'=>''];
+            $StoreInfo = $this->StoreInfoService->getStoreInfoContent($param,$columns);
+
+            $data=$this->PaginationService->page($request->page,$StoreInfo,'5','1');
+
+            $html = view('admin.store_info.query')->with('data',$data)->render();
+
+            return response ()->json ( compact('html'),200);
+
+
+        }catch (\PDOException $e)
+        {
+            //\Debugbar::info($e->getMessage());
+            DB::connection()->getPdo()->rollBack();
+            return response ()->json ( ['test'=>$e->getMessage()],404);
+        }
     }
 
     /**
@@ -77,16 +98,16 @@ class StoreInfoController extends Controller
             $this->StoreInfoService->create($request->toArray());
             DB::connection()->getPdo()->commit();
 
-            $columns = array('id','store_name');
+            $columns = array('id','store_name','local','address','open_time','close_time','telephone','is_hidden','status');
             $param = ['id'=>'','store_name'=>'','local'=>'','is_hidden'=>'','status'=>''];
             $StoreInfo = $this->StoreInfoService->getStoreInfoContent($param,$columns);
 
-            /*1.利用分頁的Services，取出要顯示在畫面上的資料*/
-            $data=$this->PaginationService->page(1,$StoreInfo,'5','1');
-            /*2.利用*/
-            $pageContent = $this->StoreInfoService->getPageContent($data);
+            $data=$this->PaginationService->page($request->page,$StoreInfo,'5','1');
 
-            return response ()->json ( $pageContent,200);
+            $html = view('admin.store_info.query')->with('data',$data)->render();
+
+            return response ()->json ( compact('html'),200);
+
 
         }catch (\PDOException $e)
         {
@@ -114,10 +135,12 @@ class StoreInfoController extends Controller
         $id = $request->id;
         $columns = array('id','store_name','local','address','open_time','close_time','telephone','is_hidden','status');
         $param = ['id'=>$id,'store_name'=>'','local'=>'','is_hidden'=>'','status'=>''];
-        $StoreInfo = $this->StoreInfoService->getStoreInfoContent($param,$columns);
-        //\Debugbar::info($StoreInfo->get()->toArray()[0]);
+        $StoreInfo = $this->StoreInfoService->getStoreInfoContent($param,$columns)->first();
 
-        return response ()->json ( $StoreInfo->get()->toArray()[0],200);
+        $html = view('admin.store_info.partial_edit')->with('StoreInfo',$StoreInfo)->render();
+
+
+        return response ()->json ( compact('html'),200);
 
     }
 
@@ -138,25 +161,21 @@ class StoreInfoController extends Controller
     {
         //
         $storeInfo = $this->StoreInfoService->ById($request->id);
-//        if(is_null($storeInfo))
-//        {
-//            flash('你无权操作')->error()->important();
-//        }
 
         $storeInfo->update($request->all());
-        //\Debugbar::info('Debug:'.$request->status);
 
         $currentPage=$request->page;
-        $columns = array('id','store_name');
+        $columns = array('id','store_name','address','telephone','open_time','close_time','status');
         $param = ['id'=>'','store_name'=>'','local'=>'','is_hidden'=>'','status'=>''];
         $StoreInfo = $this->StoreInfoService->getStoreInfoContent($param,$columns);
 
         /*1.利用分頁的Services，取出要顯示在畫面上的資料*/
         $data=$this->PaginationService->page($currentPage,$StoreInfo,'5','1');
-        /*2.利用*/
-        $pageContent = $this->StoreInfoService->getPageContent($data);
 
-        return response ()->json ( $pageContent,200);
+        $html = view('admin.store_info.query')->with('data',$data)->render();
+
+        return response ()->json ( compact('html'),200);
+
 
     }
 
@@ -164,25 +183,21 @@ class StoreInfoController extends Controller
     {
         $storeInfo = $this->StoreInfoService->ById($request->id);
 
-        if(empty($storeInfo))
-        {
-
-        }
 
         $storeInfo->delete();
 
         //
         $currentPage=$request->page;
-        $columns = array('id','store_name');
+        $columns = array('id','store_name','address','telephone','open_time','close_time','status');
         $param = ['id'=>'','store_name'=>'','local'=>'','is_hidden'=>'','status'=>''];
         $StoreInfo = $this->StoreInfoService->getStoreInfoContent($param,$columns);
 
-        /*1.利用分頁的Services，取出要顯示在畫面上的資料*/
         $data=$this->PaginationService->page($currentPage,$StoreInfo,'5','1');
-        /*2.利用*/
-        $pageContent = $this->StoreInfoService->getPageContent($data);
 
-        return response ()->json ( $pageContent,200);
+        $html = view('admin.store_info.query')->with('data',$data)->render();
+
+        return response ()->json ( compact('html'),200);
+
     }
 
     /*
@@ -190,18 +205,17 @@ class StoreInfoController extends Controller
      * 到後端取得資料在吐回給使用者
      * 使用Ajax方法
      * */
-    public function getPage($page_num=1){
+    public function getPage(Request $request){
 
-        $currentPage= \Request::input('page');
-        $columns = array('id','store_name');
+        $currentPage= $request->page;
+        $columns = array('id','store_name','address','telephone','open_time','close_time','status');
         $param = ['id'=>'','store_name'=>'','local'=>'','is_hidden'=>'','status'=>''];
         $StoreInfo = $this->StoreInfoService->getStoreInfoContent($param,$columns);
 
-        /*1.利用分頁的Services，取出要顯示在畫面上的資料*/
         $data=$this->PaginationService->page($currentPage,$StoreInfo,'5','1');
-        /*2.利用*/
-        $pageContent = $this->StoreInfoService->getPageContent($data);
 
-        return response ()->json ( $pageContent,200);
+        $html = view('admin.store_info.query')->with('data',$data)->render();
+
+        return response ()->json ( compact('html'),200);
     }
 }
