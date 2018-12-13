@@ -65,7 +65,7 @@ class AlbumController extends Controller
         $data=$this->PaginationService->page(1,$CarouselContent,'5','1');
 
 
-        return view('admin.album.index_new')->with('data',$data)->with('AlbumType',$AlbumType);
+        return view('admin.album.index')->with('data',$data)->with('AlbumType',$AlbumType);
     }
 
     /**
@@ -155,13 +155,6 @@ class AlbumController extends Controller
     public function edit(Request $request)
     {
         try{
-//            $Columns = array('id','album_id','photo_name','photo_path','photo_thumb_path','photo_virtual_path');
-//            $strAlbumId = array($request->id);
-//            $AlbumContent = $this->objAlbumD->getAlbumDByCondition($strAlbumId,$Columns);
-//            $data = $this->PaginationService->page('',$AlbumContent,'9','1');
-//            $Return = $this->AlbumService->getPageD('',$data);
-//            return Response::json($Return,200);
-//
 
             $Columns = array('id','album_id','photo_name','photo_path','photo_thumb_path','photo_virtual_path');
             $AlbumContent = $this->AlbumService->GetByCondition($request,$Columns);
@@ -169,7 +162,7 @@ class AlbumController extends Controller
             $AlbumType=$this->SystemCode->getWhere('album_type','')->pluck('zh_code_val','code_id')->toArray();
             $Album = $this->AlbumService->whereIn($request->album_id)->first();
 
-            $html = view('admin.album.edit')->with('Album',$Album)->with("data",$data)->with('AlbumType',$AlbumType)->render();
+            $html = view('admin.album.partial_edit')->with('Album',$Album)->with("data",$data)->with('AlbumType',$AlbumType)->render();
             return response ()->json ( compact('html'),200);
 
         }catch(\PDOException $e){

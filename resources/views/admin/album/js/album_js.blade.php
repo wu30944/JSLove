@@ -31,7 +31,7 @@
             },
             success: function(data) {
 
-                $('#partial').html(data['html']);
+                $('#partial_edit').html(data['html']);
                 $('#edit_modal').modal('show');
 
             },error:function(e)
