@@ -13,6 +13,7 @@ class StoreInfoController extends Controller
 
     protected $StoreInfoService;
     protected $PaginationService;
+    protected $SearchKeyWord;
 
     public function __construct(StoreInfoService $StoreInfoService,PaginationService $PaginationService)
     {
@@ -29,15 +30,23 @@ class StoreInfoController extends Controller
     {
         //
         //
-
         $columns = array('id','store_name','address','telephone','open_time','close_time','status');
         $param = ['id'=>'','store_name'=>'','local'=>'','is_hidden'=>'','status'=>''];
         $StoreInfo = $this->StoreInfoService->getStoreInfoContent($param,$columns);
 
         $data=$this->PaginationService->page(1,$StoreInfo,'5','1');
 
+        $this->SearchKeyWord = $this->StoreInfoService->GetSearchKeyWord($StoreInfo);
+
         return view('admin.store_info.index')->with('data',$data);
 
+    }
+
+
+    public function getKeyWord(){
+        $KeyWord = $this->SearchKeyWord;
+        debug($KeyWord);
+        return response ()->json ( compact('KeyWord'),200);
     }
 
     /**

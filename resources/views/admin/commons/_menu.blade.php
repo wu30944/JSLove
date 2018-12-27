@@ -62,7 +62,7 @@
                                     @if($item['route']=="pos.index")
                                         <li><a class="" href="{{ route($item['route']) }}" data-index="index_v1.html">{{$item['name']}}</a></li>
                                     @else
-                                        <li><a class="J_menuItem" href="{{ route($item['route']) }}" data-index="index_v1.html">{{$item['name']}}</a></li>
+                                        <li><a class="J_menuItem" href="{{ route($item['route']) }}" name="{{$item['name']}}" data-index="{{$item['name']}}">{{$item['name']}}</a></li>
                                     @endif
                                 @endforeach
                             </ul>

@@ -47,11 +47,11 @@ class NewsService
 
     }
 
-    public function Update($Ｍodel,$Request){
+    public function Update($Model,$Request){
 
         $Datas = $Request->all();
 
-        $Ｍodel->update($Datas);
+        $Model->update($Datas);
 
     }
 

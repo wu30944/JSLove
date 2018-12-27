@@ -1,25 +1,27 @@
 @extends('admin.layouts.layout')
 @section('css')
     <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+    <link rel="stylesheet" href="/css/jquery.datetimepicker.css">
     <style>
         .animated{-webkit-animation-fill-mode: none;}
     </style>
-    <link rel="stylesheet" href="/css/jquery.datetimepicker.css">
-
 @endsection
+
 @section('content')
     <div class="row">
         <div class="col-sm-12">
             <div class="ibox-title">
-                <h5>店家資訊</h5>
+                <h5>畫廊資料維護</h5>
             </div>
             <div class="ibox-content">
                 <div align="left">
                     <div class="col-sm-2 ui-widget">
-                        <input type="text" class="form-control" placeholder="標題" id="tags">
+                        <input type="text" class="form-control" placeholder="標題" id="search_title">
                     </div>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" placeholder="日期">
+                        <button class="btn-search btn btn-info" id="btn_search">
+                            <span class="glyphicon glyphicon-edit"></span> @lang('default.edit')
+                        </button>
                     </div>
                 </div>
                 <div align="right">
@@ -34,14 +36,16 @@
                     </button>
                 </div>
                 <div id="partial"></div>
-                @include('admin.store_info.query')
-                @include('admin.store_info.destroy')
-                @include('admin.store_info.edit')
-                @include('admin.store_info.create')
+                 @include('admin.gallery.query')
+                 @include('admin.gallery.destroy')
+
+                 @include('admin.gallery.edit')
+                 @include('admin.gallery.create')
             </div>
         </div>
     </div>
+
 @endsection
 @section('footer-js')
-    @include('admin.store_info.js.store_info_js')
+    @include('admin.gallery.js.gallery_js')
 @endsection

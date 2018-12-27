@@ -39,9 +39,53 @@
 
 @yield('js')
 <script>
-    $(function(){$("#side-menu").metisMenu();})
+    $(function(){$("#side-menu").metisMenu();});
 
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+
+
+    var iframeNo;
+    $(".J_menuItem").click(function()
+    {
+//        if(document.addEventListener){// firefox
+//            document.frames["iframe"+this.name].addEventListener("load", documentLoaded, false);}
+//        else{// ie
+//            document.frames["iframe"+this.name].attachEvent("onload", documentLoaded);
+//        }
+        var IFrameName = "iframe"+this.name;
+
+        if(window.frames[IFrameName]) {
+//            alert("存在");
+        }
+        else{
+            iframeNo = showLoadLayer();
+        }
+
+
+    });
+
+//    function documentLoaded(){
+//
+//    }
+
+    function finish() {
+        layer.close(iframeNo);
+    }
+
+
+    /*
+* 當使用ajax傳送資料到後端，會叫用此function，告訴使用者載入中
+* */
+    function showLoadLayer(){
+        return layer.msg('{{trans('message.data_loading')}}', {
+            icon: 16,
+            shade: [0.5, '#f5f5f5'],
+            scrollbar: false,
+//            offset: '0px',
+            time:40000
+        }) ;
+    }
+
 
 </script>
 @yield('footer-js')

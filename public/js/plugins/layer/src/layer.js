@@ -758,7 +758,7 @@ window.layer = layer;
 //获取子iframe的DOM
 layer.getChildFrame = function(selector, index){
   index = index || $('.'+doms[4]).attr('times');
-  return $('#'+ doms[0] + index).find('iframe').contents().find(selector);  
+  return $('#'+ doms[0] + index).find('iframe').contents().find(selector);
 };
 
 //得到当前iframe层的索引，子iframe时使用
