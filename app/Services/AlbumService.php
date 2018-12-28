@@ -390,7 +390,7 @@ class AlbumService {
 
     public function WebShow(){
 
-        $ArrayGalleryAlbumId = $this->AlbumRepository->GetAlbumIdByAlbumType('00003','1');
+        $ArrayGalleryAlbumId = $this->AlbumRepository->GetAlbumIdByAlbumType('00002','1');
 
         $min=0;
         $max=count($ArrayGalleryAlbumId)-1;
