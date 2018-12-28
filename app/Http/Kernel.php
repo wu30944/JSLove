@@ -63,9 +63,5 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'rbac' => \App\Http\Middleware\RbacAuth::class,   //后台BBAC权限控制
-        /*
-         * 2018/09/11    pjax
-         * */
-        \Spatie\Pjax\Middleware\FilterIfPjax::class,
     ];
 }

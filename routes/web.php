@@ -155,6 +155,8 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function (){
         Route::get('admin/store_info/paginate/{page_num?}',['as'=>'store_info.paginate','uses'=>'StoreInfoController@getPage']);
         Route::post('admin/store_info/destroy',['as'=>'store_info.destroy','uses'=>'StoreInfoController@destroy']);
         Route::post('admin/store_info/update',['as'=>'store_info.update','uses'=>'StoreInfoController@update']);
+        Route::get('admin/store_info/keyword',['as'=>'store_info.keyword','uses'=>'StoreInfoController@keyword']);
+        Route::get('admin/store_info/search',['as'=>'store_info.search','uses'=>'StoreInfoController@search']);
 
         /*
         * 官方網站-消息資料維護
@@ -180,6 +182,18 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function (){
         Route::post('admin/carousel/destroy',['as'=>'carousel.destroy','uses'=>'CarouselController@destroy']);
         Route::get('admin/carousel/paginate/{page_num?}',['as'=>'carousel.paginate','uses'=>'CarouselController@paginate']);
 
+        /*
+        * 官方網站-畫廊資料維護
+        * */
+        Route::get('admin/gallery/index',['as'=>'gallery.index','uses'=>'GalleryController@index']);
+        Route::get('admin/gallery/edit',['as'=>'gallery.edit','uses'=>'GalleryController@edit']);
+        Route::get('admin/gallery/create',['as'=>'gallery.create','uses'=>'GalleryController@create']);
+        Route::post('admin/gallery/update',['as'=>'gallery.update','uses'=>'GalleryController@update']);
+        Route::post('admin/gallery/store',['as'=>'gallery.store','uses'=>'GalleryController@store']);
+        Route::post('admin/gallery/destroy',['as'=>'gallery.destroy','uses'=>'GalleryController@destroy']);
+        Route::get('admin/gallery/paginate/{page_num?}',['as'=>'gallery.paginate','uses'=>'GalleryController@paginate']);
+        Route::get('admin/gallery/keyword',['as'=>'gallery.keyword','uses'=>'GalleryController@keyword']);
+        Route::get('admin/gallery/search',['as'=>'gallery.search','uses'=>'GalleryController@search']);
 
     });
 

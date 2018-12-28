@@ -12,6 +12,8 @@ use App\Services\CarouselService;
 use App\Services\NewsService;
 use App\Services\MenuService;
 use App\Services\StoreInfoService;
+use App\Services\GalleryService;
+use App\Services\AlbumService;
 
 class IndexController extends Controller
 {
@@ -23,6 +25,8 @@ class IndexController extends Controller
     private $NewsService;
     private $MenuService;
     private $StoreInfoService;
+    private $GalleryService;
+    private $AlbumService;
 
     public function __construct(AlbumRepository $AlbumRepository,
                                 AlbumDRepository $AlbumDRepository,
@@ -31,7 +35,9 @@ class IndexController extends Controller
                                 CarouselService $CarouselService,
                                 NewsService $NewsService,
                                 MenuService $MenuService,
-                                StoreInfoService $StoreInfoService
+                                StoreInfoService $StoreInfoService,
+                                GalleryService $GalleryService,
+                                AlbumService $AlbumService
     )
     {
         $this->AlbumRepository = $AlbumRepository;
@@ -42,6 +48,8 @@ class IndexController extends Controller
         $this->NewsService = $NewsService;
         $this->MenuService = $MenuService;
         $this->StoreInfoService = $StoreInfoService;
+        $this->GalleryService = $GalleryService;
+        $this->AlbumService = $AlbumService;
     }
     /**
      * Display a listing of the resource.
@@ -66,13 +74,16 @@ class IndexController extends Controller
 
         $StoreInfo = $this->StoreInfoService->WebShow();
 
-
+        $GalleryContent = $this->GalleryService->WebShow();
+        $AlbumContent = $this->AlbumService->WebShow();
         return view('joyslove.home.home')->with('Banner',$Carousel)
                                               ->with('About',$About)
                                               ->with('News',$News)
                                               ->with('MenuTitle',$MenuName)
                                               ->with('MenuContent',$MenuContent)
-                                              ->with('StoreInfo',$StoreInfo);
+                                              ->with('StoreInfo',$StoreInfo)
+                                              ->with('Gallery',$GalleryContent)
+                                              ->with('GalleryPhoto',$AlbumContent);
     }
 
     public function main()

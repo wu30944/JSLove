@@ -137,4 +137,15 @@ class StoreInfoRepository
 
     }
 
+    public function GetKeyWord($Request,$Columns){
+
+        return $this->StoreInfoRepository->select($Columns)
+            ->where(function($SubQuery) use ($Request) {
+                $SubQuery->where('store_name','like', '%'.$Request->keyword.'%');
+            })->orWhere(function($SubQuery) use ($Request) {
+                $SubQuery->where('local','=','%'.$Request->keyword.'%');
+            });
+
+    }
+
 }

@@ -388,5 +388,21 @@ class AlbumService {
         return $this->AlbumDRepository->DeletePhoto($Id);
     }
 
+    public function WebShow(){
+
+        $ArrayGalleryAlbumId = $this->AlbumRepository->GetAlbumIdByAlbumType('00002','1');
+
+        $min=0;
+        $max=count($ArrayGalleryAlbumId)-1;
+        $AlbumId = $ArrayGalleryAlbumId[rand($min,$max)];
+
+        $Request = new StdClass;
+        $Request->id = [''];
+        $Request->album_id = [$AlbumId];
+        $Columns = array('photo_path');
+
+        return $this->AlbumDRepository->GetByCondition($Request,$Columns)->get();
+    }
+
 
 }

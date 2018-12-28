@@ -7,12 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Services\StoreInfoService;
 use App\Services\PaginationService;
 use DB;
+use StdClass;
 
 class StoreInfoController extends Controller
 {
 
     protected $StoreInfoService;
     protected $PaginationService;
+    protected $SearchKeyWord;
 
     public function __construct(StoreInfoService $StoreInfoService,PaginationService $PaginationService)
     {
@@ -29,7 +31,6 @@ class StoreInfoController extends Controller
     {
         //
         //
-
         $columns = array('id','store_name','address','telephone','open_time','close_time','status');
         $param = ['id'=>'','store_name'=>'','local'=>'','is_hidden'=>'','status'=>''];
         $StoreInfo = $this->StoreInfoService->getStoreInfoContent($param,$columns);
@@ -37,6 +38,21 @@ class StoreInfoController extends Controller
         $data=$this->PaginationService->page(1,$StoreInfo,'5','1');
 
         return view('admin.store_info.index')->with('data',$data);
+
+    }
+
+    public function keyword(Request $request){
+        $Columns = array('store_name');
+
+        $KeyWord = $this->StoreInfoService->GetKeyWord($Columns,$request->term);
+
+        $Result = array();
+
+        foreach($KeyWord->get() as $index => $item){
+            $Result[] = ['value' => $item->store_name];
+        }
+
+        return response ()->json ($Result);
 
     }
 
@@ -213,6 +229,19 @@ class StoreInfoController extends Controller
         $StoreInfo = $this->StoreInfoService->getStoreInfoContent($param,$columns);
 
         $data=$this->PaginationService->page($currentPage,$StoreInfo,'5','1');
+
+        $html = view('admin.store_info.query')->with('data',$data)->render();
+
+        return response ()->json ( compact('html'),200);
+    }
+
+
+    public function search(Request $request){
+
+        $Columns = array('id','store_name','address','telephone','open_time','close_time','status');
+        $Content = $this->StoreInfoService->GetKeyWord($Columns,$request->keyword);
+        $currentPage= $request->page;
+        $data = $this->PaginationService->page($currentPage,$Content,'5','1');
 
         $html = view('admin.store_info.query')->with('data',$data)->render();
 

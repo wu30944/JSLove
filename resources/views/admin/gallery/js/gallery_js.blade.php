@@ -2,72 +2,49 @@
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 <script src="/js/jquery.datetimepicker.full.js"></script>
 <script>
-    var pagination_url = '{{route('store_info.paginate')}}';
+    CKEDITOR.on('dialogDefinition', function( ev ){
+        var dialogName = ev.data.name;
+        var dialogDefinition = ev.data.definition;
+        if (dialogName == 'image')
+        {
+            dialogDefinition.contents[2].elements[0].action += '&pin='+$(".edit-modal").val();
+            /* 2 is the upload tab it have two elements 0=apparently is the
+            and 1: is the button to perform the upload, in 0 have the action property with the parameters of the get request simply adding the new data
+              */
 
-    $(document).on('click', '.divbox', function() {
-
-        $('.divbox').removeClass('divClick');
-        $(this).addClass('divClick');
-
-        strSelectCount=$('.divClick').length;
-
-        $(".edit-modal").val($(this).attr("id"));
-        $("#btn-destroy").val($(this).attr("id"));
-
+        }
     });
 
-    function ElementClassBind(){
-
-        //當滑鼠滑入時將div的class換成divOver
-        $('.divbox').hover(function(){
-                $(this).addClass('divOver');
-
-            },function(){
-                //滑開時移除divOver樣式
-                $(this).removeClass('divOver');
-            }
-        );
-
-        /*
-            時間
-            datepicker:是否藏掉選擇日期的控制項 false,
-            format:選擇時間格式'H:i',
-            step:選擇時間的區間 30
-          */
-        $('#open_time').datetimepicker({
-            datepicker:false,
-            format:'H:i',
-            step:30
-        });
-
-        $('#close_time').datetimepicker({
-            datepicker:false,
-            format:'H:i',
-            step:30
-        });
-
-        $('#create_open_time').datetimepicker({
-            datepicker:false,
-            format:'H:i',
-            step:30
-        });
-
-        $('#create_close_time').datetimepicker({
-            datepicker:false,
-            format:'H:i',
-            step:30
+    function RegisterEditCKEditor(){
+        return CKEDITOR.replace('content', {
+            filebrowserImageUploadUrl:'{{route('files.upload')}}?_token={{csrf_token()}}'
         });
     }
 
+    function RegisterCreateCKEditor(){
+        return CKEDITOR.replace('c_content', {
+            filebrowserImageUploadUrl:'{{route('files.upload')}}?_token={{csrf_token()}}'
+
+        });
+    }
+
+    var pagination_url = '{{route('gallery.paginate')}}';
+
+
     $().ready(function() {
+        ElementClassBind();
 
     });
 
-    $("#search_keyword").autocomplete({
-        source: "{{route('store_info.keyword')}}",
+    $( function() {
+
+    } );
+
+    $("#search_title").autocomplete({
+        source: "{{route('gallery.keyword')}}",
         dataType: 'json', minLength: 1,
         select: function(e, ui) {
-            $('#search_keyword').val(ui.item.value);
+            $('#search_title').val(ui.item.value);
         }
     });
 
@@ -75,10 +52,10 @@
 
         $.ajax({
             type: 'get',
-            url: '{{route('store_info.search')}}',
+            url: '{{route('gallery.search')}}',
             data:{
                 '_token': $('input[name=_token]').val(),
-                'keyword':$('#search_keyword').val(),
+                'title':$('#search_title').val(),
                 'page':$("li[class='active'] > span").text()
             },
             beforeSend:function(){
@@ -108,7 +85,6 @@
         if($('#btn-destroy').val()!==''){
             $('#destroy_modal').modal('show');
         }
-
     });
 
     $(document).on('click', '#btn-destroy', function() {
@@ -121,11 +97,10 @@
 
                 formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
                 formData.append("id",$destroy_id);
-                formData.append("page",$("li[class='active'] > span").text());
 
                 $.ajax({
                     type: 'post',
-                    url: '{{route('store_info.destroy')}}',
+                    url: '{{route('gallery.destroy')}}',
                     processData:false,
                     cache:false,
                     contentType:false,
@@ -169,23 +144,28 @@
             }
             ,
             submitHandler: function(form) {
+
                 var layer_id ;
+                var formData = new FormData();
+                var ckEditor = CKEDITOR.instances['content'];
+                var ModifyUser = '{{Auth::guard('admin')->user()->name}}';
+
+                formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
+                formData.append("id",$('#id').val());
+                formData.append("title",$("#title").val());
+                formData.append("is_show",$("#is_show").find(":selected").val());
+                formData.append("content",GetContents(ckEditor));
+                formData.append("show_date",$("#show_date").val());
+                formData.append("modify_user",ModifyUser);
+                formData.append("page",$("li[class='active'] > span").text());
+
                 $.ajax({
                     type: 'post',
-                    url: '{{route('store_info.update')}}',
-                    data:{
-                        '_token':$('meta[name="csrf-token"]').attr('content'),
-                        'id':$('#id').val(),
-                        'store_name':$('#store_name').val(),
-                        'local':$('#local').val(),
-                        'address':$('#address').val(),
-                        'open_time':$('#open_time').val(),
-                        'close_time':$('#close_time').val(),
-                        'is_hidden': $("#is_hidden").find(":selected").val(),
-                        'telephone':$('#telephone').val(),
-                        'status':$("#status").find(":selected").val(),
-                        'page':$("li[class='active'] > span").text()
-                    },
+                    url: '{{route('gallery.update')}}',
+                    processData:false,
+                    cache:false,
+                    contentType:false,
+                    data:formData,
                     beforeSend:function(){
                         layer_id = showLoadLayer();
                         NProgress.start();
@@ -198,6 +178,7 @@
                     success: function(data) {
 
                         $('#edit_modal').modal('hide');
+
                         $('#query_content').html(data['html']);
                         ClearFormContent();
 
@@ -212,13 +193,52 @@
         });
     });
 
+
+    function ElementClassBind(){
+
+        //當滑鼠滑入時將div的class換成divOver
+        $('.divbox').hover(function(){
+                $(this).addClass('divOver');
+
+            },function(){
+                //滑開時移除divOver樣式
+                $(this).removeClass('divOver');
+            }
+        );
+
+        $('#show_date').datetimepicker({
+            yearOffset:0,
+            lang:'zh-TW',
+            timepicker:false,
+            format:'Y-m-d',
+            formatDate:'Y-m-d'
+        });
+
+        $('#c_show_date').datetimepicker({
+            yearOffset:0,
+            lang:'zh-TW',
+            timepicker:false,
+            format:'Y-m-d',
+            formatDate:'Y-m-d'
+        });
+
+    }
+
+    $(document).on('click', '.divbox', function() {
+
+        $('.divbox').removeClass('divClick');
+        $(this).addClass('divClick');
+        $(".edit-modal").val($(this).attr("id"));
+        $("#btn-destroy").val($(this).attr("id"));
+    });
+
     $(document).on('click', '.edit-modal', function() {
 
         var id =  $(this).val();
         if(id!==''){
             $.ajax({
                 type: 'get',
-                url: '{{route('store_info.edit')}}',
+                url: '{{route('gallery.edit')}}',
                 container: '#edit_modal',
                 data: {
                     '_token': $('input[name=_token]').val(),
@@ -234,8 +254,15 @@
                 },
                 success: function(data) {
 
-                    $('#partial_edit').html(data['html']);
-                    $('#partial_create').html('');
+                    ClearCKEditorInstance();        //此function寫在layout.blade.php中
+                    ckEditor = RegisterEditCKEditor();
+
+                    $('#id').val(data['id']);
+                    $('#title').val(data['title']);
+                    $('#is_show').val(data['is_show']);
+                    $('#show_date').val(data['show_date']);
+                    SetContents(ckEditor,data['content']);
+
                     $('#edit_modal').modal('show');
 
                 },error:function(e)
@@ -249,15 +276,10 @@
     });
 
     $(document).on('click', '.create-modal', function() {
-
-        layer_id = showLoadLayer();
-        NProgress.start();
+        ClearCKEditorInstance();        //此function寫在layout.blade.php中
+        ckEditor = RegisterCreateCKEditor();
         $('#create_modal').modal('show');
-        NProgress.done();
-        closeLoadLayer(layer_id);
-
     });
-
 
     /**
      *
@@ -278,22 +300,27 @@
             submitHandler: function(form) {
 
                 var layer_id ;
+                var formData = new FormData();
+                var c_ckEditor = CKEDITOR.instances['c_content'];
+                var User = '{{Auth::guard('admin')->user()->name}}';
+
+                formData.append("_token", $('meta[name="csrf-token"]').attr('content'));
+                formData.append("id",$('#id').val());
+                formData.append("title",$("#c_title").val());
+                formData.append("is_show",$("#c_is_show").find(":selected").val());
+                formData.append("content",GetContents(c_ckEditor));
+                formData.append("show_date",$("#c_show_date").val());
+                formData.append("create_user",User);
+                formData.append("modify_user",User);
+                formData.append("page",$("li[class='active'] > span").text());
 
                 $.ajax({
                     type: 'post',
-                    url: '{{route('store_info.store')}}',
-                    data:{
-                        '_token': $('meta[name="csrf-token"]').attr('content'),
-                        'store_name':$('#create_store_name').val(),
-                        'local':$('#create_local').val(),
-                        'address':$('#create_address').val(),
-                        'open_time':$('#create_open_time').val(),
-                        'close_time':$('#create_close_time').val(),
-                        'is_hidden': $("#create_is_hidden").find(":selected").val(),
-                        'telephone':$('#create_telephone').val(),
-                        'status':$("#create_status").find(":selected").val(),
-                        'page':$('#current_page').val()
-                    },
+                    url: '{{route('gallery.store')}}',
+                    processData:false,
+                    cache:false,
+                    contentType:false,
+                    data:formData,
                     beforeSend:function(){
                         layer_id = showLoadLayer();
                         NProgress.start();
@@ -320,6 +347,7 @@
         });
     });
 
+
     /**
      * 請空表單中的內容
      * @constructor
@@ -330,11 +358,7 @@
         });
     }
 
-    var strSelectCount = 0;
-
-    $(document).on('click', '.create-modal', function() {
-        $('#create_modal').modal('show');
-    });
-
-
+    function test(Para){
+        alert(Para);
+    }
 </script>

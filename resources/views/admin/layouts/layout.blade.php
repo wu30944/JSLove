@@ -18,6 +18,9 @@
     <link href="{{ loadEdition('/admin/css/nprogress.css')}}" rel="stylesheet">
 
     <link href="{{ loadEdition('/admin/css/view.css')}}" rel="stylesheet">
+
+    {{--2018/12/15 為了搜尋控制項輸入文字後有文字清單--}}
+    <link href="{{ loadEdition('/admin/css/JquerySearch/jquery-ui.css')}}" rel="stylesheet">
     @yield('css')
 </head>
 <body class="gray-bg" >
@@ -53,16 +56,6 @@
 
     var i ;
 
-    $(document).ready(function()
-    {
-        NProgress.start();
-
-    });
-
-    $(window).load(function() {
-        NProgress.done();
-        closeLoadLayer(i);
-    });
     /*
     * 當使用ajax傳送資料到後端，會叫用此function，告訴使用者載入中
     * */
@@ -130,6 +123,11 @@
     }
 
 </script>
+
+{{--2018/12/15 為了搜尋控制項輸入文字後有文字清單--}}
+<script src="{{ loadEdition('/admin/js/JquerySearch/jquery-ui.js')}}"></script>
+
+
 @yield('footer-js')
 </body>
 </html>

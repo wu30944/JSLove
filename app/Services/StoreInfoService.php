@@ -29,7 +29,7 @@ class StoreInfoService
     public function create(array $params)
     {
         //\Debugbar::info($params['telephone']);
-        return $this->StoreInfoRepository->create($params);
+        $this->StoreInfoRepository->create($params);
     }
 
     /**
@@ -48,6 +48,16 @@ class StoreInfoService
 
     }
 
+
+    public function GetSearchKeyWord($Model){
+
+        $SearchWord = array();
+        foreach($Model->get() as $index => $item){
+            $SearchWord[$index] = $item->store_name;
+        }
+
+        return $SearchWord;
+    }
 
     /*
      * 將畫面上view的內容組起來
@@ -129,6 +139,17 @@ class StoreInfoService
         $Columns = array('id','store_name','local','address','open_time','close_time','telephone','is_hidden','status');
 
         $StoreInfo = $this->StoreInfoRepository->GetByCondition($Request,$Columns)->get();
+
+        return $StoreInfo;
+    }
+
+    public function GetKeyWord($Columns,$KeyWord){
+
+        $Request = new StdClass;
+        $Request->keyword = $KeyWord;
+
+
+        $StoreInfo = $this->StoreInfoRepository->GetKeyWord($Request,$Columns);
 
         return $StoreInfo;
     }
