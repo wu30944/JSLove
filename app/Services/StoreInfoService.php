@@ -142,4 +142,15 @@ class StoreInfoService
 
         return $StoreInfo;
     }
+
+    public function GetKeyWord($Columns,$KeyWord){
+
+        $Request = new StdClass;
+        $Request->keyword = $KeyWord;
+
+
+        $StoreInfo = $this->StoreInfoRepository->GetKeyWord($Request,$Columns);
+
+        return $StoreInfo;
+    }
 }

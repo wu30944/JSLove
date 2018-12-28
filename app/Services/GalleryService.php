@@ -87,12 +87,12 @@ class GalleryService
         $Request = new StdClass;
         $Request->title = '';
         $Request->is_show = '1';
-        $Request->show_date =date("Y-m-d");
+        $Request->show_date = date("Y-m-d");
         $Request->id='';
 
         $Columns = array('id','title','content');
 
-        $Gallery = $this->GalleryRepository->GetByCondition($Request,$Columns);
+        $Gallery = $this->GalleryRepository->GetByCondition($Request,$Columns)->first();
 
         return $Gallery;
     }

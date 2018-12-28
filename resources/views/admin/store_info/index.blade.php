@@ -16,10 +16,12 @@
             <div class="ibox-content">
                 <div align="left">
                     <div class="col-sm-2 ui-widget">
-                        <input type="text" class="form-control" placeholder="標題" id="tags">
+                        <input type="text" class="form-control" placeholder="店家名稱" id="search_keyword">
                     </div>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" placeholder="日期">
+                        <button class="btn-search btn btn-info" id="btn_search">
+                            <span class="glyphicon glyphicon-search"></span> @lang('default.search')
+                        </button>
                     </div>
                 </div>
                 <div align="right">

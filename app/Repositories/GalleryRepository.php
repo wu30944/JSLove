@@ -46,7 +46,7 @@ class GalleryRepository
                 $SubQuery->where('id','=',$Request->id )
                     ->orwhereRaw("''=IFNULL(?,'')", [$Request->id]);
             })->where(function($SubQuery) use ($Request) {
-                $SubQuery->where('is_show','<',$Request->is_show)
+                $SubQuery->where('is_show','=',$Request->is_show)
                     ->orwhereRaw("''=IFNULL(?,'')", [$Request->is_show]);
             })->where(function($SubQuery) use ($Request) {
                 $SubQuery->where('show_date','<',$Request->show_date)

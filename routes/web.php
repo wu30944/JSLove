@@ -155,7 +155,8 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function (){
         Route::get('admin/store_info/paginate/{page_num?}',['as'=>'store_info.paginate','uses'=>'StoreInfoController@getPage']);
         Route::post('admin/store_info/destroy',['as'=>'store_info.destroy','uses'=>'StoreInfoController@destroy']);
         Route::post('admin/store_info/update',['as'=>'store_info.update','uses'=>'StoreInfoController@update']);
-        Route::get('admin/store_info/getKeyWord',['as'=>'store_info.getKeyWord','uses'=>'StoreInfoController@getKeyWord']);
+        Route::get('admin/store_info/keyword',['as'=>'store_info.keyword','uses'=>'StoreInfoController@keyword']);
+        Route::get('admin/store_info/search',['as'=>'store_info.search','uses'=>'StoreInfoController@search']);
 
         /*
         * 官方網站-消息資料維護

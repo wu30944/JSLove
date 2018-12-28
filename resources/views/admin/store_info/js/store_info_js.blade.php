@@ -60,36 +60,48 @@
     }
 
     $().ready(function() {
-        ElementClassBind();
-//        KeyWordBind();
+
     });
 
-    function KeyWordBind(){
+    $("#search_keyword").autocomplete({
+        source: "{{route('store_info.keyword')}}",
+        dataType: 'json', minLength: 1,
+        select: function(e, ui) {
+            $('#search_keyword').val(ui.item.value);
+        }
+    });
+
+    $(document).on('click', '#btn_search', function() {
 
         $.ajax({
             type: 'get',
-            url: '{{route('store_info.getKeyWord')}}',
+            url: '{{route('store_info.search')}}',
+            data:{
+                '_token': $('input[name=_token]').val(),
+                'keyword':$('#search_keyword').val(),
+                'page':$("li[class='active'] > span").text()
+            },
             beforeSend:function(){
-
+                layer_id = showLoadLayer();
+                NProgress.start();
             },
             complete:function(){
-
+                NProgress.done();
+                closeLoadLayer(layer_id);
+                ElementClassBind();
             },
             success: function(data) {
 
-//
-//                var availableTags = data['KeyWord'];
-//                $( "#tags" ).autocomplete({
-//                    source: availableTags
-//                });
+                $('#query_content').html(data['html']);
 
             },error:function(e,x,z)
             {
                 var errors=e.responseJSON;
                 alert(errors.message);
+
             }
         });
-    }
+    });
 
 
     $(document).on('click', '.destroy-modal', function() {

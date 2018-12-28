@@ -16,11 +16,11 @@
             <div class="ibox-content">
                 <div align="left">
                     <div class="col-sm-2 ui-widget">
-                        <input type="text" class="form-control" placeholder="標題" id="search_title">
+                        <input type="text" class="form-control" placeholder="@lang('default.title')" id="search_title">
                     </div>
                     <div class="col-sm-2">
                         <button class="btn-search btn btn-info" id="btn_search">
-                            <span class="glyphicon glyphicon-edit"></span> @lang('default.edit')
+                            <span class="glyphicon glyphicon-search"></span> @lang('default.search')
                         </button>
                     </div>
                 </div>

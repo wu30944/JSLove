@@ -194,6 +194,28 @@ class AlbumRepository
          return $data;
     }
 
+    /**
+     * 根據相簿類別取得該類別的相簿ID
+     * @param $AlbumType
+     * @param $Status
+     * @return array
+     */
+    public function GetAlbumIdByAlbumType($AlbumType,$Status){
+
+        $dtBannerAlbumId=$this->dtAlbum->select('id')
+            ->where('album_type',$AlbumType)
+            ->where('status',$Status)
+            ->get();
+        $data = array();
+
+        if(count($dtBannerAlbumId)>0){
+            foreach($dtBannerAlbumId as $item) {
+                $data[] = $item->id;
+            }
+        }
+        return $data;
+    }
+
 
     public function GetByCondition($request,$columns){
 
