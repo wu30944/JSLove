@@ -47,6 +47,10 @@
                     {{--<div style="width: 300px;">--}}
                         {{--{!! Geetest::render() !!}--}}
                     {{--</div>--}}
+                    <input id="captcha" class="form-control" name="captcha" placeholder="{{trans('default.valid_code')}}">
+
+                    <img class="thumbnail captcha" src="{{ captcha_src('flat') }}" onclick="this.src='/captcha/flat?'+Math.random()" title="點擊圖片重新獲取驗證碼">
+
                     <p></p>
                     <button class="btn btn-success btn-block">@lang('default.login')</button>
                     <p></p>
@@ -60,6 +64,14 @@
                             </ul>
                         </div>
                     @endif
+                    {{--<div class="col-md-6">--}}
+
+                        {{--@if ($errors->has('captcha'))--}}
+                            {{--<span class="help-block">--}}
+                                        {{--<strong>{{ $errors->first('captcha') }}</strong>--}}
+                                    {{--</span>--}}
+                        {{--@endif--}}
+                    {{--</div>--}}
                 </form>
             </div>
         </div>

@@ -141,6 +141,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         });
 
     });
+
+    function InvalidMsg(textbox) {
+        if (textbox.value === '') {
+            textbox.setCustomValidity('@lang('message.err_required')');
+        } else if (textbox.validity.typeMismatch){
+            textbox.setCustomValidity('@lang('message.err_email_format')');
+        } else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+
+
 </script>
 {{--<script type="application/x-javascript">--}}
     {{--addEventListener("load", function () {--}}

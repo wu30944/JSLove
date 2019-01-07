@@ -132,7 +132,13 @@ return [
     'contact_us'=>'與我們聯絡',
     'batch_delete'=>'整批刪除',
     'menu_name'=>'菜單別',
-    'new_release_content'=>'最新發布內容'
+    'new_release_content'=>'最新發布內容',
+    'valid_code'=>'驗證碼',
+    'name'=>'姓名',
+    'subject'=>'主旨',
+    'submit'=>'送出',
+    'clear'=>'清除',
+    'fill_form'=>'填妥表單與我們聯絡',
 
 
 
