@@ -19,6 +19,9 @@ use Validator;
 use Captcha;
 use App\Services\ContactUsService;
 
+
+use App\Events\ContactUsEvent;
+
 class IndexController extends Controller
 {
     private $AlbumRepository;
@@ -114,11 +117,14 @@ class IndexController extends Controller
                 ->withInput();
 //            return viewError(trans('message.send_fail'),'joyslove.index','error');
         }else{
-            $this->ContactUsService->Create($request);
+            $ContactUs = $this->ContactUsService->Create($request);
+            // fire event once user has been created
+            event(new ContactUsEvent($ContactUs));
         }
 
         return viewError(trans('message.send_successful'),'joyslove.index','send_success');
     }
+
 
 
 }

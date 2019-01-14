@@ -9,3 +9,4 @@ Route::get ( '/', ['as' => 'joyslove.index','uses' => 'IndexController@index']);
 
 Route::post('/submit/contactus',['as'=>'joyslove.submit','uses'=>'IndexController@store']);
 
+Route::get('/send/warning', ['as'=>'joyslove.sendemail','uses'=>'WarningController@send']);
