@@ -7,17 +7,21 @@ use App\Http\Controllers\Controller;
 use App\Repositories\FlavorRepository;
 use App\Repositories\UserOrderRepository;
 use DB;
+use stdClass;
+use App\Services\MenuService;
 
 class PosController extends Controller
 {
 
     private $FlavorRepository;
     private $UserOrderRepository;
+    private $MenuService;
 
-    public function __construct(FlavorRepository $FlavorRepository,UserOrderRepository $UserOrderRepository)
+    public function __construct(FlavorRepository $FlavorRepository,UserOrderRepository $UserOrderRepository,MenuService $MenuService)
     {
         $this->FlavorRepository = $FlavorRepository;
         $this->UserOrderRepository = $UserOrderRepository;
+        $this->MenuService = $MenuService;
     }
 
     /**
@@ -28,14 +32,31 @@ class PosController extends Controller
     public function index()
     {
         //
-//        $this->UserOrderRepository
-        $dtFlavor=$this->FlavorRepository->getStatusFlavor([1]);
+        $request = new StdClass;
+        $request->menu_name = '';
+        $request->prod_name = '';
+        $request->status = '1';
+        $request->id='';
+
+        $columns = array('id','menu_name','prod_name'
+        ,'prod_intro','photo','price','status');
+
+        $dtMenu = $this->MenuService->GetByCondition($request,$columns)->get();
+
+        $columns = array('menu_name');
+        $request->menu_name='';
+        $dtMenuTitle = $this->MenuService->GetByCondition($request,$columns)->groupBy('menu_name')->get();
 
         //將還未完成的訂單資料帶出
         $dtUserOrder = $this->UserOrderRepository->DivideOrderContent($this->UserOrderRepository->getTodayUserOrderStatus([2]));
 
-        //\Debugbar::info($dtUserOrder);
-        return view('admin.pos.index')->with('dtFlavor',$dtFlavor)->with('dtUserOrder',$dtUserOrder);
+        return view('admin.pos.index_new')->with('Menu',$dtMenu)->with('Title',$dtMenuTitle)->with('dtUserOrder',$dtUserOrder);
+
+
+//        $dtFlavor=$this->FlavorRepository->getStatusFlavor([1]);
+//
+//
+//        return view('admin.pos.index')->with('dtFlavor',$dtFlavor)->with('dtUserOrder',$dtUserOrder);
     }
 
     /**

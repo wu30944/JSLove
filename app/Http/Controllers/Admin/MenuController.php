@@ -34,7 +34,6 @@ class MenuController extends Controller
         $request->prod_name = '';
         $request->status = '1';
         $request->id='';
-//        $param = ['id'=>'','menu_name'=>'','prod_name'=>'','status'=>''];
 
         $columns = array('id','menu_name','prod_name'
         ,'prod_intro','photo','price','status');
@@ -44,8 +43,6 @@ class MenuController extends Controller
         $columns = array('menu_name');
         $request->menu_name='';
         $dtMenuTitle = $this->MenuRepository->GetByCondition($request,$columns)->groupBy('menu_name')->get();
-//        ////\Debugbar::info($dtMenu->toArray());
-//        //\Debugbar::info($dtMenuTitle->toArray());
 
         return view('admin.menu.index')->with('Menu',$dtMenu)
                                             ->with('Title',$dtMenuTitle);
