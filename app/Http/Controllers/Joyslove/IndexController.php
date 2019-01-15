@@ -14,6 +14,13 @@ use App\Services\MenuService;
 use App\Services\StoreInfoService;
 use App\Services\GalleryService;
 use App\Services\AlbumService;
+use App\Http\Requests\Admin\ContactUsFormRequest;
+use Validator;
+use Captcha;
+use App\Services\ContactUsService;
+
+
+use App\Events\ContactUsEvent;
 
 class IndexController extends Controller
 {
@@ -27,6 +34,7 @@ class IndexController extends Controller
     private $StoreInfoService;
     private $GalleryService;
     private $AlbumService;
+    private $ContactUsService;
 
     public function __construct(AlbumRepository $AlbumRepository,
                                 AlbumDRepository $AlbumDRepository,
@@ -37,7 +45,8 @@ class IndexController extends Controller
                                 MenuService $MenuService,
                                 StoreInfoService $StoreInfoService,
                                 GalleryService $GalleryService,
-                                AlbumService $AlbumService
+                                AlbumService $AlbumService,
+                                ContactUsService $ContactUsService
     )
     {
         $this->AlbumRepository = $AlbumRepository;
@@ -50,6 +59,7 @@ class IndexController extends Controller
         $this->StoreInfoService = $StoreInfoService;
         $this->GalleryService = $GalleryService;
         $this->AlbumService = $AlbumService;
+        $this->ContactUsService = $ContactUsService;
     }
     /**
      * Display a listing of the resource.
@@ -90,4 +100,31 @@ class IndexController extends Controller
     {
         return view('admin.indexs.main');
     }
+
+
+    public function store(ContactUsFormRequest $request){
+
+        $rules = array (
+            'captcha' => 'required|captcha'
+        );
+        $messages = ['captcha.captcha' => '驗證碼錯誤'];
+
+        $validator = Validator::make ( $request->all (), $rules, $messages );
+        $url = route('joyslove.index').'#mail';
+        if ($validator->fails ()){
+            return redirect($url)
+                ->withErrors($validator)
+                ->withInput();
+//            return viewError(trans('message.send_fail'),'joyslove.index','error');
+        }else{
+            $ContactUs = $this->ContactUsService->Create($request);
+            // fire event once user has been created
+            event(new ContactUsEvent($ContactUs));
+        }
+
+        return viewError(trans('message.send_successful'),'joyslove.index','send_success');
+    }
+
+
+
 }

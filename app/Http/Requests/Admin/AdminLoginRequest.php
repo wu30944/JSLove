@@ -41,7 +41,8 @@ class AdminLoginRequest extends FormRequest
         return [
             'name'              => 'required',
             'password'          => ['required', new AdminLoginRule($this->adminsRepository, \Request::get('name'))],
-            'geetest_challenge' => 'geetest'
+            'geetest_challenge' => 'geetest',
+            'captcha'           => 'required|captcha'
         ];
     }
 
@@ -55,6 +56,7 @@ class AdminLoginRequest extends FormRequest
             'name.required'     => '管理员名称不能为空',
             'password.required' => '密码不能为空',
             'geetest'           => '验证码校验失败',
+            'captcha'           => '驗證碼錯誤'
         ];
     }
 }

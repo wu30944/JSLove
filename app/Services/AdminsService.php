@@ -132,6 +132,7 @@ class AdminsService
      */
     public function login($request)
     {
+
         if(!Auth::guard('admin')->attempt([
             'name'     => $request->name,
             'password' => $request->password,

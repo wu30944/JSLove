@@ -26,6 +26,7 @@ return [
     'error'=>'請洽工程師',
     'store_successful'=>'儲存成功',
     'page_auto_transform'=>'登入成功，頁面將會自動跳轉，等待時間',
+    'send_successful_page_auto_transform'=>'送出成功，頁面將會自動跳轉，等待時間',
     'click_transform'=>'點擊跳轉',
     'login_successful'=>'登入成功',
     'login_fail'=>'登入失敗',
@@ -64,7 +65,14 @@ return [
     'err_cname'=>'請輸入姓名',
     'err_contact_phone'=>'請輸入聯絡電話',
     'err_email_format'=>'E-MAIL格式有誤',
-    'err_digits'=>'可能有輸入不為數字的文字'
+    'err_digits'=>'可能有輸入不為數字的文字',
+    'err_required'=>'此欄位為必輸欄位',
+    'err_name'=>'請輸入姓名',
+    'err_subject'=>'請輸入主旨',
+    'err_message'=>'請輸入訊息內容',
+    'err_valid_code'=>'驗證碼錯誤',
+    'send_successful'=>'送出成功',
+    'send_fail'=>'送出失敗'
 
 
 ];
