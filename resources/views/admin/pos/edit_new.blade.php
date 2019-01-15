@@ -71,7 +71,7 @@
                                                             <div class="clearfix"> </div>
                                                         </div>
                                                         <div class="col-md-8" style="text-align:center;line-height:100px;color:black;">
-                                                            <font size="3">{{$menu->prod_name}} ${{$menu->price}}</font>
+                                                            <font size="4">{{$menu->prod_name}}</font><font style="color:red;" size="4">${{$menu->price}}</font>
                                                         </div>
                                                         <div class="clearfix"> </div>
                                                     </div>

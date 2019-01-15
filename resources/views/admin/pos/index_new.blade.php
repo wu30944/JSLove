@@ -266,6 +266,9 @@
                         "<td style='display:none'>"+$FlavorID+"</td></tr>");
                 }
 
+                $('.DivCal').removeClass('divClick');
+                $('.divbox').removeClass('divClick');
+
 
                 $('#Item').text('尚未選擇項目');
                 $('#Number').text('');
@@ -331,10 +334,6 @@
                         }
                         $OrderInfo=[];
                         $('#order_serial_no').val("");
-                        $('.PressFlavorPancake').addClass('btn-success');
-                        $('.PressFlavorPancake').removeClass('btn-default');
-                        $('.PressFlavorRice').addClass('btn-info');
-                        $('.PressFlavorRice').removeClass('btn-default');
 
                     },error:function(e)
                     {
