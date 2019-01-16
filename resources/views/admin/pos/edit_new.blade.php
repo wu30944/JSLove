@@ -31,13 +31,13 @@
                             @if($i==0)
                                 <li class="active">
                                     <a href="#{{$Title[$i]["menu_name"]}}" data-toggle="tab">
-                                        @lang('default.pancake')
+                                        <font size="6">@lang('default.pancake')</font>
                                     </a>
                                 </li>
                             @else
                                 <li>
                                     <a href="#{{$Title[$i]["menu_name"]}}" data-toggle="tab">
-                                        @lang('default.rice_ball')
+                                        <font size="6">@lang('default.rice_ball')</font>
                                     </a>
                                 </li>
                             @endif

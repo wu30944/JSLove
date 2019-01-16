@@ -266,12 +266,7 @@
                         "<button type='button' class='btn btn-danger item-edit btn-sm' value='"+trs+"'>刪除</button></td>" +
                         "<td style='display:none'>"+$FlavorID+"</td></tr>");
                 }
-                $sum_money = 0;
-                for (var i = 0; i < $OrderInfo.length; i++) {
-                    if(typeof($OrderInfo[i])!= "undefined"){
-                        $sum_money = $sum_money+ $OrderInfo[i][3];
-                    }
-                }
+                $sum_money = CalOrderMoney();
                 $('#sum_money').text($sum_money);
 
                 $('.DivCal').removeClass('divClick');
@@ -362,6 +357,15 @@
             $('#Number').text('*'+$OrderNum);
         });
 
+        function CalOrderMoney(){
+            var $Money=0;
+            for (var i = 0; i < $OrderInfo.length; i++) {
+                if(typeof($OrderInfo[i])!= "undefined"){
+                    $Money = $Money+ $OrderInfo[i][3];
+                }
+            }
+            return $Money;
+        }
 
         $(document).on('click', '.btn-destroy', function() {
 //            alert($(this).val());
@@ -441,6 +445,7 @@
                         $OrderInfo.push($Order);
                     }
                     $('#order_serial_no').val($strOrderSerialNo);
+                    $('#sum_money').text(CalOrderMoney());
 
 //                    layer.open({
 //                        type: 1,
