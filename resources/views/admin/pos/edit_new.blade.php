@@ -1,14 +1,10 @@
 <div class="">
-    <section id="new">
-        <div class="row">
-            <br>
-        </div>
         <div class="modal-header row" style="height:260px;" id="OrderTop">
             <div class="col-md-6 col-xs-6">
                 <table>
                     <tr>
-                        <td><h2><p id="Item" style="font-weight:bold;" >尚未選擇項目</p></h2></td>
-                        <td><h2><p id="Number" style="font-weight:bold;"></p></h2></td>
+                        <td><h1><p id="Item" style="font-weight:bold;" >尚未選擇項目</p></h1></td>
+                        <td><h1><p id="Number" style="font-weight:bold;"></p></h1></td>
                     </tr>
 
                 </table>
@@ -22,8 +18,6 @@
                         <td>@lang('default.money')</td>
                         <td>@lang('default.edit')</td>
                     </thead>
-                    <tbody>
-                    </tbody>
                 </table>
             </div>
             <input id="order_serial_no" type="text" value="" style="display:none">
@@ -213,14 +207,17 @@
                     <button type="button" class="btn btn-primary btn-finish btn-lg" data-dismiss="modal">
                         <span class='glyphicon glyphicon-remove'></span> @lang('default.finish')
                     </button>
+
+
                 </div>
             </div>
             {{--</div>--}}
+                <br>
+            <div class="modal-header row">
+                <div class="modal-footer">
+                    <font size="6">總計：<spqn id="sum_money"></spqn></font>
+                </div>
+            </div>
+
         </div>
-        <div class="row">
-            <br>
-            <br><br>
-            <br>
-        </div>
-    </section>
 </div>

@@ -22,8 +22,6 @@
                         <td>@lang('default.money')</td>
                         <td>@lang('default.edit')</td>
                     </thead>
-                    <tbody>
-                    </tbody>
                 </table>
             </div>
             <input id="order_serial_no" type="text" value="" style="display:none">

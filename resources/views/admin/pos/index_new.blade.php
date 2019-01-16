@@ -134,6 +134,7 @@
             $OrderFlavor='';
             $OrderMoney=0;
             $OrderInfo=[];
+            $('#sum_money').text(0);
             $("#Flavor tbody").html("");
             $('#Item').text('尚未選擇項目');
             $('#Number').text('');
@@ -265,6 +266,13 @@
                         "<button type='button' class='btn btn-danger item-edit btn-sm' value='"+trs+"'>刪除</button></td>" +
                         "<td style='display:none'>"+$FlavorID+"</td></tr>");
                 }
+                $sum_money = 0;
+                for (var i = 0; i < $OrderInfo.length; i++) {
+                    if(typeof($OrderInfo[i])!= "undefined"){
+                        $sum_money = $sum_money+ $OrderInfo[i][3];
+                    }
+                }
+                $('#sum_money').text($sum_money);
 
                 $('.DivCal').removeClass('divClick');
                 $('.divbox').removeClass('divClick');
