@@ -32,12 +32,14 @@ return [
 
         'pusher' => [
             'driver' => 'pusher',
-            'key' => env('PUSHER_APP_KEY'),
-            'secret' => env('PUSHER_APP_SECRET'),
+            'key' => env('PUSHER_KEY'),
+            'secret' => env('PUSHER_SECRET'),
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
-                //
-            ],
+                'cluster' => 'ap3',         //这里必须填写你的cluster,我这里是ap1
+                'encrypted' => false,       //是否加密设为false
+
+             ],
         ],
 
         'redis' => [

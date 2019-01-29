@@ -12,6 +12,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <meta name="keywords" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link href="{{loadEdition('/css/joyslove/bootstrap.css')}}" rel='stylesheet' type='text/css' />
     <link href="{{loadEdition('/css/joyslove/wickedpicker.css')}}" rel="stylesheet" type='text/css' media="all" />
@@ -26,7 +27,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- //js -->
     <script src="js/joyslove/responsiveslides.min.js"></script>
     <script>
-        $(function () {
+        jQuery(function ($) {
             $("#slider4").responsiveSlides({
                 auto: true,
                 pager: true,
@@ -51,7 +52,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <body>
 @yield('content')
 
-
+<div id="app"></div>
 <!--search-bar-->
 <script src="js/joyslove/main.js"></script>
 <!--//search-bar-->
@@ -61,7 +62,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link rel="stylesheet " href="css/joyslove/chocolat.css " type="text/css" media="all" />
 <!--light-box-files -->
 <script type="text/javascript ">
-    $(function () {
+    jQuery(function ($) {
         $('.portfolio-grids a').Chocolat();
     });
 </script>
@@ -70,7 +71,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link rel="stylesheet" href="css/joyslove/jquery-ui.css" />
 <script src="js/joyslove/jquery-ui.js"></script>
 <script>
-    $(function () {
+    jQuery(function ($) {
         $("#datepicker,#datepicker1,#datepicker2,#datepicker3").datepicker();
     });
 </script>
@@ -88,7 +89,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- script for responsive tabs -->
 <script src="js/joyslove/easy-responsive-tabs.js"></script>
 <script>
-    $(document).ready(function () {
+    jQuery(function ($) {
         $('#horizontalTab').easyResponsiveTabs({
             type: 'default', //Types: default, vertical, accordion
             width: 'auto', //auto or any width like 600px
@@ -126,7 +127,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- start-smoth-scrolling -->
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    jQuery(function ($) {
         /*
                                 var defaults = {
                                       containerID: 'toTop', // fading element id
@@ -167,6 +168,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 {{--</script>--}}
 {{--<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>--}}
 <script type="text/javascript" src="js/joyslove/bootstrap-3.1.1.min.js"></script>
+<script src="{{ asset('js/app.js') }}"></script>
+<script>
+    window.Echo.channel("NotificationEvent").listen('NotificationEvent', (e) => {
+
+        alert(e.msg);//msg对应事件的一个public属性
+    });
+</script>
 @yield('js')
 @yield('footer-js')
 </body>
